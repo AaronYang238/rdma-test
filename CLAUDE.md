@@ -40,6 +40,7 @@
 > - [`docs/stage4-scalability.md`](docs/stage4-scalability.md) — 阶段四：可扩展架构（SRQ/共享 CQ/手工 QP 状态机/UD-DC）
 > - [`docs/stage5-reliability.md`](docs/stage5-reliability.md) — 阶段五：可靠性与生产化（WC 错误/重传/DCQCN/资源生命周期）
 > - [`docs/stage6-memory.md`](docs/stage6-memory.md) — 阶段六：高级内存管理（注册缓存/ODP/Memory Windows/HugePage）
+> - [`docs/stage7-integration.md`](docs/stage7-integration.md) — 阶段七：与上层系统集成（极简 RPC/GPUDirect/生态总览/Soft-RoCE）
 
 ---
 

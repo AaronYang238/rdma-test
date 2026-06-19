@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c62828"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2e7d32"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1565c0"/>
+    </marker>
+  </defs>
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">GPUDirect RDMA 数据路径对比</text>
+
+  <!-- Remote side -->
+  <rect x="20" y="50" width="110" height="180" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="75" y="72" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">远端节点</text>
+  <rect x="35" y="85" width="80" height="30" rx="4" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="75" y="105" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1565c0">远端 NIC</text>
+  <text x="75" y="145" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#666">PCIe 总线</text>
+  <line x1="75" y1="120" x2="75" y2="220" stroke="#1565c0" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Local NIC -->
+  <rect x="200" y="100" width="100" height="40" rx="4" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="250" y="118" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#1565c0">本端 NIC</text>
+  <text x="250" y="133" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">(RDMA NIC)</text>
+
+  <!-- PCIe arrow from remote to local NIC -->
+  <line x1="135" y1="120" x2="198" y2="120" stroke="#1565c0" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="167" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">PCIe</text>
+
+  <!-- === Traditional path (top, red) === -->
+  <text x="360" y="65" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#c62828">传统路径（有 CPU 拷贝）</text>
+
+  <!-- System RAM -->
+  <rect x="360" y="80" width="100" height="40" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+  <text x="410" y="98" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">系统 RAM</text>
+  <text x="410" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">(主存缓冲)</text>
+
+  <!-- CPU copy -->
+  <rect x="360" y="140" width="100" height="35" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="410" y="155" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">CPU 拷贝</text>
+  <text x="410" y="168" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">memcpy / DMA</text>
+
+  <!-- GPU Memory (traditional) -->
+  <rect x="560" y="80" width="110" height="40" rx="4" fill="#fce4ec" stroke="#c62828" stroke-width="1.5"/>
+  <text x="615" y="98" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">GPU 显存</text>
+  <text x="615" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#c62828">(cudaMalloc)</text>
+
+  <!-- Traditional arrows -->
+  <line x1="302" y1="108" x2="358" y2="108" stroke="#c62828" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="410" y1="120" x2="410" y2="138" stroke="#c62828" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="460" y1="157" x2="558" y2="100" stroke="#c62828" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- === GPUDirect path (bottom, green) === -->
+  <text x="360" y="210" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2e7d32">GPUDirect RDMA（零拷贝）</text>
+
+  <!-- peer-memory module -->
+  <rect x="340" y="220" width="140" height="35" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="410" y="235" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">peer-memory 模块</text>
+  <text x="410" y="249" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">nvidia_peermem / nv_peer_mem</text>
+
+  <!-- GPU Memory (GPUDirect) -->
+  <rect x="560" y="195" width="110" height="40" rx="4" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="615" y="213" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">GPU 显存</text>
+  <text x="615" y="227" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">(cudaMalloc)</text>
+
+  <!-- GPUDirect arrows -->
+  <line x1="302" y1="132" x2="338" y2="232" stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="480" y1="237" x2="558" y2="215" stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Zero copy label -->
+  <text x="510" y="175" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#2e7d32">零拷贝 DMA</text>
+</svg>

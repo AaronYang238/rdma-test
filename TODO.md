@@ -115,10 +115,14 @@
 
 ## 阶段七 · 与上层系统集成（实战落地）
 
-- [ ] 7.1 在 RDMA 上手写一个**极简 RPC**：请求/响应缓冲环 + 单边写 + IMM 通知。
-- [ ] 7.2 **GPUDirect RDMA** 概念与 `IBV_ACCESS_*` + peer-memory（仅原理 + 伪代码）。
-- [ ] 7.3 生态总览：NVMe-oF、NCCL/集合通信、SPDK、UCX —— 各自如何用上述原语。
-- [ ] 7.4 **Soft-RoCE(`rdma_rxe`) 完整实验环境**搭建脚本，无硬件也能跑全部示例。
+- [x] 7.1 在 RDMA 上手写一个**极简 RPC**：请求/响应缓冲环 + 单边写 + IMM 通知。
+      SVG：`docs/img/s7-1-rpc.svg`。
+- [x] 7.2 **GPUDirect RDMA** 概念与 `IBV_ACCESS_*` + peer-memory（仅原理 + 伪代码）。
+      SVG：`docs/img/s7-2-gpudirect.svg`。
+- [x] 7.3 生态总览：NVMe-oF、NCCL/集合通信、SPDK、UCX —— 各自如何用上述原语。
+      SVG：`docs/img/s7-3-ecosystem.svg`。
+- [x] 7.4 **Soft-RoCE(`rdma_rxe`) 完整实验环境**搭建脚本，无硬件也能跑全部示例。
+      SVG：`docs/img/s7-4-softroce.svg`。文档：`docs/stage7-integration.md`。
 
 ---
 
