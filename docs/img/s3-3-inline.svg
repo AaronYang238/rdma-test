@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" font-family="sans-serif" font-size="12">
+  <rect width="720" height="260" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">Inline data：小消息内嵌 WQE，省去 DMA 读 buffer</text>
+
+  <!-- normal path -->
+  <text x="180" y="50" text-anchor="middle" fill="#c62828">普通路径（len > max_inline_data）</text>
+  <rect x="40" y="64" width="130" height="44" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="105" y="85" text-anchor="middle" font-size="11">WQE</text>
+  <text x="105" y="101" text-anchor="middle" font-size="10">sge.addr / lkey</text>
+  <line x1="170" y1="86" x2="230" y2="86" stroke="#c62828" marker-end="url(#a)"/>
+  <text x="200" y="78" text-anchor="middle" font-size="9">PCIe DMA 读</text>
+  <rect x="230" y="64" width="130" height="44" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="295" y="85" text-anchor="middle" font-size="11">数据 buffer</text>
+  <text x="295" y="101" text-anchor="middle" font-size="10">（内存中）</text>
+  <text x="500" y="86" text-anchor="middle" fill="#c62828" font-size="11">网卡需额外 PCIe 事务读数据</text>
+
+  <!-- inline path -->
+  <text x="180" y="142" text-anchor="middle" fill="#2e7d32">Inline 路径（len ≤ max_inline_data）</text>
+  <rect x="40" y="156" width="260" height="44" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="170" y="175" text-anchor="middle" font-size="11">WQE + 数据内嵌（无需 lkey）</text>
+  <text x="170" y="191" text-anchor="middle" font-size="10">数据直接复制进 SQ WQE 区域</text>
+  <text x="500" y="176" text-anchor="middle" fill="#2e7d32" font-size="11">网卡读 WQE 即得数据</text>
+  <text x="500" y="192" text-anchor="middle" fill="#2e7d32" font-size="11">省一次 PCIe 往返</text>
+
+  <text x="360" y="240" text-anchor="middle" fill="#555" font-size="11">cap.max_inline_data 由网卡决定（mlx5 通常 ≤ 236 B）；IBV_SEND_INLINE 标志</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c62828"/></marker></defs>
+</svg>

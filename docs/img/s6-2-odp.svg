@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L4,7 L7,1" fill="none" stroke="#333" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L4,7 L7,1" fill="none" stroke="#ef6c00" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="280" fill="#fbfbfd"/>
+
+  <!-- Title -->
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="13">ODP（On-Demand Paging）：按需分页，无需预先 pin</text>
+
+  <!-- Panel divider -->
+  <line x1="360" y1="35" x2="360" y2="270" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- === Left panel: 传统 MR === -->
+  <text x="170" y="48" text-anchor="middle" font-weight="bold" fill="#1565c0">传统 MR（全量 pin）</text>
+
+  <!-- Buffer outline -->
+  <rect x="40" y="58" width="260" height="120" rx="5" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="170" y="75" text-anchor="middle" fill="#1565c0" font-size="11">注册缓冲区（全部锁定）</text>
+
+  <!-- 8 filled page boxes -->
+  <rect x="55"  y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="90"  y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="125" y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="160" y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="195" y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="230" y="82" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="55"  y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="90"  y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="125" y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="160" y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="195" y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+  <rect x="230" y="112" width="28" height="22" rx="2" fill="#1565c0"/>
+
+  <text x="170" y="155" text-anchor="middle" fill="#1565c0" font-size="10">■ 已 pin 页面（所有页）</text>
+  <text x="170" y="168" text-anchor="middle" fill="#555" font-size="10">注册时全量 mlock，内存不可换出</text>
+
+  <!-- Cost labels -->
+  <rect x="40" y="186" width="260" height="40" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1"/>
+  <text x="170" y="202" text-anchor="middle" fill="#c62828" font-weight="bold">注册开销大，内存必须全部可用</text>
+  <text x="170" y="218" text-anchor="middle" fill="#c62828" font-size="11">稀疏大缓冲区浪费严重</text>
+
+  <text x="170" y="248" text-anchor="middle" fill="#555" font-size="11">ibv_reg_mr(pd, buf, SIZE,</text>
+  <text x="170" y="262" text-anchor="middle" fill="#555" font-size="11">  IBV_ACCESS_LOCAL_WRITE)</text>
+
+  <!-- === Right panel: ODP MR === -->
+  <text x="540" y="48" text-anchor="middle" font-weight="bold" fill="#2e7d32">ODP MR（按需分页）</text>
+
+  <!-- Buffer outline -->
+  <rect x="380" y="58" width="300" height="120" rx="5" fill="#f1f8e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="530" y="75" text-anchor="middle" fill="#2e7d32" font-size="11">注册缓冲区（页面按需映射）</text>
+
+  <!-- Mix of filled (accessed) and empty (not yet accessed) pages -->
+  <!-- Row 1: some filled, some empty -->
+  <rect x="395" y="82" width="28" height="22" rx="2" fill="#2e7d32"/>
+  <rect x="430" y="82" width="28" height="22" rx="2" fill="#2e7d32"/>
+  <rect x="465" y="82" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <rect x="500" y="82" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <rect x="535" y="82" width="28" height="22" rx="2" fill="#2e7d32"/>
+  <rect x="570" y="82" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <!-- Row 2 -->
+  <rect x="395" y="112" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <rect x="430" y="112" width="28" height="22" rx="2" fill="#2e7d32"/>
+  <rect x="465" y="112" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <rect x="500" y="112" width="28" height="22" rx="2" fill="#2e7d32"/>
+  <rect x="535" y="112" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+  <rect x="570" y="112" width="28" height="22" rx="2" fill="#e0e0e0" stroke="#bbb" stroke-width="1"/>
+
+  <text x="450" y="155" text-anchor="middle" fill="#2e7d32" font-size="10">■ 已映射</text>
+  <text x="556" y="155" text-anchor="middle" fill="#888" font-size="10">□ 未映射</text>
+
+  <!-- ODP fault flow -->
+  <text x="530" y="178" text-anchor="middle" fill="#ef6c00" font-weight="bold" font-size="11">首次访问缺页处理流程：</text>
+
+  <!-- Flow boxes -->
+  <rect x="380" y="186" width="130" height="22" rx="3" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="445" y="201" text-anchor="middle" fill="#ef6c00" font-size="10">NIC 访问未映射页</text>
+
+  <line x1="510" y1="197" x2="524" y2="197" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="525" y="186" width="80" height="22" rx="3" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="565" y="201" text-anchor="middle" fill="#ef6c00" font-size="10">触发缺页中断</text>
+
+  <!-- Second row of flow -->
+  <rect x="380" y="216" width="100" height="22" rx="3" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.2"/>
+  <text x="430" y="231" text-anchor="middle" fill="#ef6c00" font-size="10">内核处理 + 固定页</text>
+
+  <line x1="480" y1="227" x2="494" y2="227" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <rect x="495" y="216" width="80" height="22" rx="3" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.2"/>
+  <text x="535" y="231" text-anchor="middle" fill="#2e7d32" font-size="10">NIC 重试成功</text>
+
+  <text x="530" y="258" text-anchor="middle" fill="#ef6c00" font-size="11">首次访问延迟：10–100 µs/页</text>
+  <text x="530" y="272" text-anchor="middle" fill="#555" font-size="10">IBV_ACCESS_ON_DEMAND | IBV_ACCESS_LOCAL_WRITE</text>
+</svg>

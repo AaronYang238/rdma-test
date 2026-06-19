@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="220" font-family="sans-serif" font-size="12">
+  <rect width="720" height="220" fill="#fbfbfd"/>
+  <rect x="30" y="80" width="150" height="50" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="105" y="100" text-anchor="middle">src/*.c</text>
+  <text x="105" y="118" text-anchor="middle" font-size="10">common.h</text>
+  <line x1="180" y1="105" x2="250" y2="105" stroke="#555" marker-end="url(#k)"/>
+  <text x="215" y="98" text-anchor="middle" font-size="10">make</text>
+  <rect x="250" y="80" width="170" height="50" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="335" y="100" text-anchor="middle">gcc + librdmacm</text>
+  <text x="335" y="118" text-anchor="middle" font-size="10">libibverbs</text>
+  <line x1="420" y1="105" x2="490" y2="105" stroke="#555" marker-end="url(#k)"/>
+  <rect x="490" y="55" width="200" height="44" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="590" y="82" text-anchor="middle">bin/rdma_server</text>
+  <rect x="490" y="112" width="200" height="44" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="590" y="139" text-anchor="middle">bin/rdma_client</text>
+  <line x1="590" y1="156" x2="590" y2="185" stroke="#c62828" marker-end="url(#k)"/>
+  <text x="590" y="205" text-anchor="middle" font-size="11" fill="#c62828">需 RDMA 网卡 IP（非 127.0.0.1）</text>
+  <defs><marker id="k" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

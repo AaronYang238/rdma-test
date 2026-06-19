@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1565c0"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#333">Soft-RoCE (rdma_rxe) 架构与配置</text>
+
+  <!-- Standard Ethernet NIC -->
+  <rect x="30" y="60" width="150" height="50" rx="6" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="105" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ef6c00">普通以太网卡</text>
+  <text x="105" y="98" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#ef6c00">eth0 (无 RDMA 硬件)</text>
+
+  <!-- rdma_rxe kernel module -->
+  <rect x="250" y="60" width="200" height="70" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="350" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565c0">rdma_rxe 内核模块</text>
+  <text x="350" y="98" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">软件实现 RoCEv2 协议栈</text>
+  <text x="350" y="112" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#1565c0">暴露 rxe0 虚拟 RDMA 设备</text>
+
+  <!-- libibverbs API -->
+  <rect x="250" y="160" width="200" height="45" rx="6" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="350" y="180" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2e7d32">libibverbs API</text>
+  <text x="350" y="196" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#2e7d32">ibv_* / rdma_* 标准接口</text>
+
+  <!-- RDMA Applications -->
+  <rect x="530" y="60" width="160" height="145" rx="6" fill="#ede7f6" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="610" y="82" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#5e35b1">RDMA 应用</text>
+  <text x="610" y="102" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">examples/01-write-demo</text>
+  <text x="610" y="118" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">examples/02-send-recv</text>
+  <text x="610" y="134" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">examples/03-read</text>
+  <text x="610" y="150" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">examples/04-immediate</text>
+  <text x="610" y="166" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">examples/05-atomic</text>
+  <text x="610" y="184" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5e35b1">…</text>
+
+  <!-- Arrows -->
+  <line x1="180" y1="85" x2="248" y2="85" stroke="#ef6c00" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="350" y1="130" x2="350" y2="158" stroke="#1565c0" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="450" y1="182" x2="528" y2="130" stroke="#2e7d32" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Setup commands -->
+  <rect x="30" y="160" width="200" height="100" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="1"/>
+  <text x="130" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#333">配置命令</text>
+  <text x="40" y="196" font-family="monospace" font-size="10" fill="#1565c0">modprobe rdma_rxe</text>
+  <text x="40" y="212" font-family="monospace" font-size="10" fill="#1565c0">rdma link add rxe0 \</text>
+  <text x="40" y="226" font-family="monospace" font-size="10" fill="#1565c0">  type rxe netdev eth0</text>
+  <text x="40" y="242" font-family="monospace" font-size="10" fill="#2e7d32">ibv_devinfo  # 验证 rxe0</text>
+
+  <!-- Note -->
+  <rect x="30" y="268" width="658" height="0" rx="0" fill="none"/>
+  <text x="360" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#c62828">注：无需 RDMA 硬件，适合开发测试；软件模拟延迟约 50µs，不可用于性能评估</text>
+</svg>

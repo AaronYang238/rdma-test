@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" font-family="sans-serif" font-size="12">
+  <rect width="720" height="380" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">传输类型对比：可靠性 × 连接性</text>
+
+  <!-- axes -->
+  <line x1="90" y1="320" x2="660" y2="320" stroke="#555" marker-end="url(#a)"/>
+  <line x1="90" y1="320" x2="90" y2="50" stroke="#555" marker-end="url(#a)"/>
+  <text x="660" y="340" text-anchor="end" font-size="11">连接型 → 一对一 ←→ 一对多/无连接</text>
+  <text x="78" y="50" text-anchor="end" font-size="11" transform="rotate(-90 78,50)">可靠性 →</text>
+
+  <!-- RC -->
+  <rect x="120" y="70" width="150" height="58" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="195" y="92" text-anchor="middle" font-weight="bold">RC 可靠连接</text>
+  <text x="195" y="110" text-anchor="middle" font-size="10">有序可靠·支持 READ/ATOMIC</text>
+  <text x="195" y="123" text-anchor="middle" font-size="10" fill="#c62828">每对端 1 QP（不易扩展）</text>
+
+  <!-- UC -->
+  <rect x="120" y="160" width="150" height="50" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="195" y="182" text-anchor="middle" font-weight="bold">UC 不可靠连接</text>
+  <text x="195" y="200" text-anchor="middle" font-size="10">无重传·无 READ/ATOMIC</text>
+
+  <!-- UD -->
+  <rect x="430" y="230" width="160" height="58" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="510" y="252" text-anchor="middle" font-weight="bold">UD 不可靠数据报</text>
+  <text x="510" y="270" text-anchor="middle" font-size="10">一个 QP 对多端·仅 SEND</text>
+  <text x="510" y="283" text-anchor="middle" font-size="10" fill="#2e7d32">扩展性最佳</text>
+
+  <!-- XRC/DC -->
+  <rect x="400" y="70" width="220" height="64" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="510" y="92" text-anchor="middle" font-weight="bold">XRC / DC</text>
+  <text x="510" y="110" text-anchor="middle" font-size="10">可靠 + 缓解 QP 爆炸</text>
+  <text x="510" y="124" text-anchor="middle" font-size="10">DC：动态连接，海量节点首选</text>
+
+  <text x="360" y="362" text-anchor="middle" fill="#555" font-size="11">本仓库示例均用 RC：语义最全、最易教学；大规模服务端再权衡 UD/DC</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

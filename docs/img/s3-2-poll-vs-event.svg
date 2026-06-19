@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="320" font-family="sans-serif" font-size="12">
+  <rect width="720" height="320" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">完成通知模式：busy-poll vs 事件驱动 vs 混合策略</text>
+
+  <!-- busy poll -->
+  <rect x="30" y="44" width="200" height="120" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="130" y="62" text-anchor="middle" font-weight="bold" fill="#1565c0">Busy-Poll</text>
+  <text x="130" y="82" text-anchor="middle" font-size="11">while(ibv_poll_cq()==0);</text>
+  <text x="130" y="100" text-anchor="middle" font-size="10">CPU 占满一个核</text>
+  <text x="130" y="118" text-anchor="middle" font-size="10" fill="#2e7d32">延迟最低（亚微秒）</text>
+  <text x="130" y="136" text-anchor="middle" font-size="10" fill="#c62828">吞吐受限于单核</text>
+  <text x="130" y="152" text-anchor="middle" font-size="10" fill="#c62828">电力浪费大</text>
+
+  <!-- event -->
+  <rect x="260" y="44" width="200" height="120" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="360" y="62" text-anchor="middle" font-weight="bold" fill="#ef6c00">事件驱动</text>
+  <text x="360" y="82" text-anchor="middle" font-size="11">ibv_req_notify_cq</text>
+  <text x="360" y="98" text-anchor="middle" font-size="11">→ epoll / 阻塞等待</text>
+  <text x="360" y="116" text-anchor="middle" font-size="10">CPU 让出（省电）</text>
+  <text x="360" y="134" text-anchor="middle" font-size="10" fill="#2e7d32">高并发连接场景好</text>
+  <text x="360" y="152" text-anchor="middle" font-size="10" fill="#c62828">延迟增加 1–5 μs</text>
+
+  <!-- hybrid -->
+  <rect x="490" y="44" width="200" height="120" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="590" y="62" text-anchor="middle" font-weight="bold" fill="#2e7d32">混合策略</text>
+  <text x="590" y="80" text-anchor="middle" font-size="11">先 poll N 次</text>
+  <text x="590" y="96" text-anchor="middle" font-size="11">无 CQE 再 arm notify</text>
+  <text x="590" y="112" text-anchor="middle" font-size="11">→ epoll sleep</text>
+  <text x="590" y="130" text-anchor="middle" font-size="10" fill="#2e7d32">兼顾延迟与 CPU</text>
+  <text x="590" y="148" text-anchor="middle" font-size="10">生产首选</text>
+
+  <!-- state machine for hybrid -->
+  <text x="360" y="195" text-anchor="middle" font-weight="bold">混合策略状态机</text>
+  <rect x="130" y="210" width="120" height="34" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="190" y="232" text-anchor="middle" font-size="11">SPIN poll</text>
+  <rect x="460" y="210" width="130" height="34" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="525" y="232" text-anchor="middle" font-size="11">arm → epoll</text>
+  <line x1="250" y1="227" x2="460" y2="227" stroke="#555" marker-end="url(#a)"/>
+  <text x="355" y="220" text-anchor="middle" font-size="10">N 次无 CQE</text>
+  <line x1="460" y1="244" x2="250" y2="244" stroke="#555" marker-end="url(#a)"/>
+  <text x="355" y="258" text-anchor="middle" font-size="10">CQE 到达</text>
+
+  <text x="360" y="300" text-anchor="middle" fill="#555" font-size="11">ibv_get_cq_event 每次需 ibv_ack_cq_events(cq,1) 确认，否则内核引用计数泄漏</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

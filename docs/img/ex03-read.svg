@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" font-family="sans-serif" font-size="12">
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="180" y="22" text-anchor="middle" font-weight="bold">Client (发起 READ)</text>
+  <text x="540" y="22" text-anchor="middle" font-weight="bold">Server (被读)</text>
+  <line x1="180" y1="32" x2="180" y2="250" stroke="#1565c0" stroke-width="2"/>
+  <line x1="540" y1="32" x2="540" y2="250" stroke="#5e35b1" stroke-width="2"/>
+
+  <text x="540" y="50" text-anchor="middle" font-size="11" fill="#2e7d32">reg_mr(REMOTE_READ)</text>
+  <text x="180" y="50" text-anchor="middle" font-size="11" fill="#2e7d32">post_recv(ctrl)</text>
+
+  <line x1="540" y1="78" x2="180" y2="78" stroke="#5e35b1" marker-end="url(#q)"/>
+  <text x="360" y="71" text-anchor="middle">SEND: addr + rkey + size</text>
+
+  <line x1="180" y1="120" x2="540" y2="120" stroke="#2e7d32" stroke-width="2" marker-end="url(#r)"/>
+  <text x="360" y="113" text-anchor="middle" fill="#2e7d32">RDMA READ 请求 (remote_addr + rkey)</text>
+  <line x1="540" y1="150" x2="180" y2="150" stroke="#2e7d32" stroke-width="2" stroke-dasharray="5" marker-end="url(#r2)"/>
+  <text x="360" y="168" text-anchor="middle" fill="#999" font-size="10">数据回流（服务端 CPU 无感）→ 仅客户端得 CQE</text>
+
+  <line x1="180" y1="200" x2="540" y2="200" stroke="#5e35b1" marker-end="url(#s)"/>
+  <text x="360" y="193" text-anchor="middle">SEND: ACK "read completed"</text>
+  <text x="360" y="238" text-anchor="middle" fill="#c62828">READ 完成在客户端发送队列产生 CQE（wait_send_comp）</text>
+  <defs>
+    <marker id="q" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#5e35b1"/></marker>
+    <marker id="r" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#2e7d32"/></marker>
+    <marker id="r2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#2e7d32"/></marker>
+    <marker id="s" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#5e35b1"/></marker>
+  </defs>
+</svg>

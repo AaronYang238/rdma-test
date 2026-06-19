@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c62828"/>
+    </marker>
+    <marker id="arrow-white" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="white"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="300" fill="#fbfbfd"/>
+
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="13">
+    DCQCN 拥塞控制反馈环路
+  </text>
+
+  <!-- 发送端 box -->
+  <rect x="20" y="60" width="160" height="140" fill="#1565c0" rx="8"/>
+  <text x="100" y="82" text-anchor="middle" fill="white" font-weight="bold" font-size="13">发送端</text>
+  <text x="100" y="98" text-anchor="middle" fill="white" font-size="10">(Sender / RNIC)</text>
+
+  <!-- 速率降低 sub-box -->
+  <rect x="30" y="106" width="140" height="30" fill="#c62828" rx="4"/>
+  <text x="100" y="125" text-anchor="middle" fill="white" font-size="11">速率降低（乘性减）</text>
+
+  <!-- 慢启动恢复 sub-box -->
+  <rect x="30" y="143" width="140" height="30" fill="#2e7d32" rx="4"/>
+  <text x="100" y="162" text-anchor="middle" fill="white" font-size="11">慢启动恢复（加性增）</text>
+
+  <text x="100" y="192" text-anchor="middle" fill="white" font-size="10">收到 CNP → 降速</text>
+  <text x="100" y="204" text-anchor="middle" fill="white" font-size="10">无 CNP → 探测带宽</text>
+
+  <!-- Data flow arrow: sender → switch -->
+  <line x1="180" y1="130" x2="270" y2="130" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="225" y="122" text-anchor="middle" fill="#555" font-size="10">数据包</text>
+  <text x="225" y="148" text-anchor="middle" fill="#555" font-size="9">(RoCEv2 UDP)</text>
+
+  <!-- 交换机 box -->
+  <rect x="270" y="90" width="160" height="100" fill="#e65100" rx="8"/>
+  <text x="350" y="112" text-anchor="middle" fill="white" font-weight="bold" font-size="13">交换机</text>
+  <text x="350" y="128" text-anchor="middle" fill="white" font-size="10">(Switch)</text>
+
+  <rect x="280" y="135" width="140" height="28" fill="rgba(0,0,0,0.25)" rx="4"/>
+  <text x="350" y="150" text-anchor="middle" fill="white" font-size="11">ECN 标记（CE bit）</text>
+  <text x="350" y="164" text-anchor="middle" fill="white" font-size="9">队列深度 &gt; 阈值时触发</text>
+
+  <!-- Data flow arrow: switch → receiver -->
+  <line x1="430" y1="130" x2="510" y2="130" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="470" y="122" text-anchor="middle" fill="#555" font-size="10">数据包</text>
+  <text x="470" y="148" text-anchor="middle" fill="#555" font-size="9">含 CE 标记</text>
+
+  <!-- 接收端 box -->
+  <rect x="510" y="60" width="190" height="140" fill="#1565c0" rx="8"/>
+  <text x="605" y="82" text-anchor="middle" fill="white" font-weight="bold" font-size="13">接收端</text>
+  <text x="605" y="98" text-anchor="middle" fill="white" font-size="10">(Receiver / RNIC)</text>
+
+  <rect x="520" y="106" width="170" height="30" fill="rgba(0,0,0,0.2)" rx="4"/>
+  <text x="605" y="125" text-anchor="middle" fill="white" font-size="11">识别 CE 标记</text>
+
+  <rect x="520" y="143" width="170" height="30" fill="rgba(0,0,0,0.2)" rx="4"/>
+  <text x="605" y="162" text-anchor="middle" fill="white" font-size="11">生成 CNP 包</text>
+
+  <text x="605" y="192" text-anchor="middle" fill="white" font-size="10">CNP: Congestion</text>
+  <text x="605" y="204" text-anchor="middle" fill="white" font-size="10">Notification Packet</text>
+
+  <!-- CNP curved arrow: receiver → sender (right to left, dashed, red) -->
+  <path d="M 510 80 Q 350 30 180 80" fill="none" stroke="#c62828" stroke-width="2" stroke-dasharray="7,4" marker-end="url(#arrow-red)"/>
+  <text x="350" y="28" text-anchor="middle" fill="#c62828" font-weight="bold" font-size="12">CNP（拥塞通知包）← 反向反馈</text>
+
+  <!-- Bottom note -->
+  <rect x="20" y="230" width="680" height="50" fill="#fff8e1" stroke="#e65100" stroke-width="1" rx="6"/>
+  <text x="360" y="248" text-anchor="middle" fill="#e65100" font-weight="bold" font-size="11">可观测计数器：</text>
+  <text x="360" y="264" text-anchor="middle" fill="#555" font-size="11">/sys/class/infiniband/*/ports/*/hw_counters/   np_cnp_sent | rp_cnp_handled | out_of_buffer</text>
+  <text x="360" y="277" text-anchor="middle" fill="#555" font-size="10">PFC PAUSE 帧兜底 → 防止丢包，但可能引发 HOL（Head-of-Line）阻塞</text>
+</svg>

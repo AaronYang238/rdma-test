@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" font-family="sans-serif" font-size="12">
+  <rect width="720" height="360" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">手工 QP 状态机（RESET → INIT → RTR → RTS → ERROR）</text>
+
+  <!-- states -->
+  <rect x="300" y="44" width="120" height="36" fill="#eceff1" stroke="#90a4ae"/>
+  <text x="360" y="67" text-anchor="middle">RESET</text>
+
+  <rect x="300" y="116" width="120" height="36" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="360" y="139" text-anchor="middle">INIT</text>
+
+  <rect x="300" y="188" width="120" height="36" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="360" y="211" text-anchor="middle">RTR（Ready To Receive）</text>
+
+  <rect x="300" y="260" width="120" height="36" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="360" y="283" text-anchor="middle">RTS（Ready To Send）</text>
+
+  <!-- error -->
+  <rect x="540" y="188" width="120" height="36" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="600" y="211" text-anchor="middle">ERROR</text>
+
+  <!-- arrows -->
+  <line x1="360" y1="80"  x2="360" y2="116" stroke="#555" marker-end="url(#a)"/>
+  <text x="380" y="102" font-size="10">ibv_modify_qp(INIT)</text>
+  <text x="380" y="114" font-size="10">qp_access_flags · pkey_index · port_num</text>
+
+  <line x1="360" y1="152" x2="360" y2="188" stroke="#555" marker-end="url(#a)"/>
+  <text x="380" y="174" font-size="10">ibv_modify_qp(RTR)</text>
+  <text x="380" y="186" font-size="10">dest QPN · GID · PSN · mtu</text>
+
+  <line x1="360" y1="224" x2="360" y2="260" stroke="#555" marker-end="url(#a)"/>
+  <text x="380" y="246" font-size="10">ibv_modify_qp(RTS)</text>
+  <text x="380" y="258" font-size="10">sq_psn · timeout · retry_cnt</text>
+
+  <!-- error path -->
+  <line x1="420" y1="206" x2="540" y2="206" stroke="#c62828" stroke-dasharray="4" marker-end="url(#r)"/>
+  <text x="480" y="198" text-anchor="middle" font-size="10" fill="#c62828">出错 / 超时</text>
+
+  <!-- back to reset -->
+  <path d="M540 224 C 680 224 680 62 420 62" fill="none" stroke="#5e35b1" stroke-dasharray="4" marker-end="url(#p)"/>
+  <text x="650" y="145" font-size="10" fill="#5e35b1">ibv_modify_qp</text>
+  <text x="650" y="159" font-size="10" fill="#5e35b1">(RESET) 恢复</text>
+
+  <text x="360" y="332" text-anchor="middle" fill="#555" font-size="11">rdma_cm 自动完成此状态机；手工 QP 需带外 TCP 交换 GID/QPN/PSN</text>
+  <text x="360" y="350" text-anchor="middle" fill="#ef6c00" font-size="11">必须先到 RTR 才能 post_recv；RTR 之后才能 post_send（RTS）</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker>
+    <marker id="r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c62828"/></marker>
+    <marker id="p" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#5e35b1"/></marker>
+  </defs>
+</svg>

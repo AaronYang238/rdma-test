@@ -1,29 +1,19 @@
-CC := gcc
-CFLAGS := -O2 -Wall -Wextra -std=c11
-LDFLAGS := $(shell pkg-config --libs librdmacm libibverbs)
-CPPFLAGS := $(shell pkg-config --cflags librdmacm libibverbs)
+# 顶层 Makefile —— 递归构建所有 examples/。
+#
+# 旧的单体 demo 已收编为 examples/01-write-demo/；保留 src/ 仅作历史参照。
 
-SRC_DIR := src
-BIN_DIR := bin
+EXAMPLES := $(sort $(dir $(wildcard examples/*/Makefile)))
 
-TARGETS := $(BIN_DIR)/rdma_server $(BIN_DIR)/rdma_client
+.PHONY: all clean list $(EXAMPLES)
 
-.PHONY: all clean run-local
+all: $(EXAMPLES)
 
-all: $(TARGETS)
-
-$(BIN_DIR):
-	mkdir -p $(BIN_DIR)
-
-$(BIN_DIR)/rdma_server: $(SRC_DIR)/server.c $(SRC_DIR)/common.h | $(BIN_DIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@ $(LDFLAGS)
-
-$(BIN_DIR)/rdma_client: $(SRC_DIR)/client.c $(SRC_DIR)/common.h | $(BIN_DIR)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $< -o $@ $(LDFLAGS)
+$(EXAMPLES):
+	$(MAKE) -C $@
 
 clean:
-	rm -rf $(BIN_DIR)
+	@for d in $(EXAMPLES); do $(MAKE) -C $$d clean; done
 
-run-local: all
-	@echo "Terminal #1: ./bin/rdma_server 127.0.0.1 7471"
-	@echo "Terminal #2: ./bin/rdma_client 127.0.0.1 7471"
+list:
+	@echo "可构建示例："
+	@for d in $(EXAMPLES); do echo "  - $$d"; done

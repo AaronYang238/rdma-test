@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">选择性 signaling：每 N 个 WR 只产生一次 CQE</text>
+
+  <!-- naive: all signaled -->
+  <text x="180" y="50" text-anchor="middle" fill="#c62828">全量 signaling（低吞吐）</text>
+  <line x1="40" y1="80" x2="680" y2="80" stroke="#c62828" stroke-width="1.5" marker-end="url(#a)"/>
+  <!-- WRs -->
+  <rect x="60"  y="64" width="60" height="30" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="90"  y="84" text-anchor="middle" font-size="10">WR+SIG</text>
+  <rect x="140" y="64" width="60" height="30" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="170" y="84" text-anchor="middle" font-size="10">WR+SIG</text>
+  <rect x="220" y="64" width="60" height="30" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="250" y="84" text-anchor="middle" font-size="10">WR+SIG</text>
+  <rect x="300" y="64" width="60" height="30" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="330" y="84" text-anchor="middle" font-size="10">WR+SIG</text>
+  <!-- CQEs -->
+  <text x="90"  y="112" text-anchor="middle" font-size="10" fill="#c62828">CQE</text>
+  <text x="170" y="112" text-anchor="middle" font-size="10" fill="#c62828">CQE</text>
+  <text x="250" y="112" text-anchor="middle" font-size="10" fill="#c62828">CQE</text>
+  <text x="330" y="112" text-anchor="middle" font-size="10" fill="#c62828">CQE</text>
+  <text x="430" y="90" text-anchor="middle" fill="#c62828" font-size="11">每个 WR 都产生 CQE → poll 开销高</text>
+
+  <!-- selective: every 4 -->
+  <text x="180" y="152" text-anchor="middle" fill="#2e7d32">选择性 signaling（高吞吐）</text>
+  <line x1="40" y1="182" x2="680" y2="182" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#g)"/>
+  <rect x="60"  y="166" width="60" height="30" fill="#e8f5e9" stroke="#90a4ae"/>
+  <text x="90"  y="186" text-anchor="middle" font-size="10" fill="#999">WR</text>
+  <rect x="140" y="166" width="60" height="30" fill="#e8f5e9" stroke="#90a4ae"/>
+  <text x="170" y="186" text-anchor="middle" font-size="10" fill="#999">WR</text>
+  <rect x="220" y="166" width="60" height="30" fill="#e8f5e9" stroke="#90a4ae"/>
+  <text x="250" y="186" text-anchor="middle" font-size="10" fill="#999">WR</text>
+  <rect x="300" y="166" width="60" height="30" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="330" y="186" text-anchor="middle" font-size="10">WR+SIG</text>
+  <text x="330" y="214" text-anchor="middle" font-size="10" fill="#2e7d32">CQE</text>
+  <text x="430" y="190" text-anchor="middle" fill="#2e7d32" font-size="11">每 N 个 WR 一个 CQE → poll 压力减 N 倍</text>
+
+  <text x="360" y="256" text-anchor="middle" fill="#555" font-size="11">隐患：SQ 耗尽时必须 flush 未完成的 unsignaled WR（追踪 outstanding 计数）</text>
+  <text x="360" y="278" text-anchor="middle" fill="#ef6c00" font-size="11">sq_sig_all=1（教学默认）→ 生产改 0，手动标记 IBV_SEND_SIGNALED</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#c62828"/></marker>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2e7d32"/></marker>
+  </defs>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" font-family="sans-serif" font-size="12">
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">共享 CQ + 单线程事件循环</text>
+
+  <rect x="60"  y="50" width="100" height="40" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="110" y="75" text-anchor="middle" font-size="11">QP₀ · SQ</text>
+  <rect x="200" y="50" width="100" height="40" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="250" y="75" text-anchor="middle" font-size="11">QP₁ · SQ</text>
+  <rect x="340" y="50" width="100" height="40" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="390" y="75" text-anchor="middle" font-size="11">QP₂ · SQ</text>
+  <rect x="480" y="50" width="100" height="40" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="530" y="75" text-anchor="middle" font-size="11">QP₃ · SQ</text>
+
+  <rect x="220" y="142" width="280" height="44" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="360" y="162" text-anchor="middle" font-size="11" font-weight="bold">共享 CQ</text>
+  <text x="360" y="178" text-anchor="middle" font-size="10">CQE 携带 wr_id / qp_num 区分来源</text>
+
+  <line x1="110" y1="90" x2="280" y2="142" stroke="#1565c0" marker-end="url(#a)"/>
+  <line x1="250" y1="90" x2="330" y2="142" stroke="#1565c0" marker-end="url(#a)"/>
+  <line x1="390" y1="90" x2="390" y2="142" stroke="#1565c0" marker-end="url(#a)"/>
+  <line x1="530" y1="90" x2="440" y2="142" stroke="#1565c0" marker-end="url(#a)"/>
+
+  <rect x="280" y="210" width="160" height="40" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="360" y="230" text-anchor="middle" font-size="11">事件循环线程</text>
+  <text x="360" y="244" text-anchor="middle" font-size="10">ibv_poll_cq → dispatch(wc)</text>
+  <line x1="360" y1="186" x2="360" y2="210" stroke="#ef6c00" marker-end="url(#o)"/>
+
+  <text x="360" y="270" text-anchor="middle" fill="#555" font-size="11">一个线程服务多 QP；适合高连接数低 QPS；poll 热点转为 dispatch 逻辑</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#1565c0"/></marker>
+    <marker id="o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#ef6c00"/></marker>
+  </defs>
+</svg>

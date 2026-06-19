@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="14">sys 计数器层级</text>
+
+  <!-- Root path -->
+  <rect x="210" y="40" width="300" height="32" rx="6" fill="#1565c0"/>
+  <text x="360" y="61" text-anchor="middle" fill="white" font-size="11">/sys/class/infiniband/&lt;dev&gt;/ports/&lt;N&gt;/</text>
+
+  <!-- counters/ branch -->
+  <rect x="60" y="104" width="160" height="28" rx="6" fill="#1565c0"/>
+  <text x="140" y="122" text-anchor="middle" fill="white" font-weight="bold" font-size="11">counters/</text>
+
+  <!-- counters list -->
+  <rect x="30" y="148" width="220" height="96" rx="4" fill="#2e7d32"/>
+  <text x="140" y="164" text-anchor="middle" fill="white" font-weight="bold" font-size="11">标准 IB 计数器</text>
+  <text x="40" y="180" fill="white" font-size="10">port_rcv_errors</text>
+  <text x="40" y="194" fill="white" font-size="10">port_xmit_discards</text>
+  <text x="40" y="208" fill="white" font-size="10">port_rcv_packets</text>
+  <text x="40" y="222" fill="white" font-size="10">symbol_errors</text>
+
+  <!-- error annotation -->
+  <rect x="50" y="254" width="180" height="24" rx="4" fill="#c62828"/>
+  <text x="140" y="270" text-anchor="middle" fill="white" font-size="10">非零 → 链路质量问题</text>
+
+  <!-- hw_counters/ branch -->
+  <rect x="500" y="104" width="160" height="28" rx="6" fill="#1565c0"/>
+  <text x="580" y="122" text-anchor="middle" fill="white" font-weight="bold" font-size="11">hw_counters/</text>
+
+  <!-- hw_counters list -->
+  <rect x="470" y="148" width="220" height="96" rx="4" fill="#2e7d32"/>
+  <text x="580" y="164" text-anchor="middle" fill="white" font-weight="bold" font-size="11">厂商扩展计数器</text>
+  <text x="480" y="180" fill="white" font-size="10">np_cnp_sent</text>
+  <text x="480" y="194" fill="white" font-size="10">np_ecn_marked_roce_packets</text>
+  <text x="480" y="208" fill="white" font-size="10">rx_read_requests</text>
+  <text x="480" y="222" fill="white" font-size="10">rx_write_requests</text>
+
+  <!-- congestion annotation -->
+  <rect x="490" y="254" width="180" height="24" rx="4" fill="#c62828"/>
+  <text x="580" y="270" text-anchor="middle" fill="white" font-size="10">CNP 增长 → 网络拥塞</text>
+
+  <!-- Arrows: root to branches -->
+  <line x1="270" y1="72" x2="180" y2="102" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="450" y1="72" x2="540" y2="102" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrows: branches to lists -->
+  <line x1="140" y1="132" x2="140" y2="146" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="580" y1="132" x2="580" y2="146" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrows: lists to annotations -->
+  <line x1="140" y1="244" x2="140" y2="252" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="580" y1="244" x2="580" y2="252" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>

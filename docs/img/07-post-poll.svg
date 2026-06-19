@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" font-family="sans-serif" font-size="12">
+  <rect width="720" height="260" fill="#fbfbfd"/>
+  <rect x="40" y="40" width="160" height="40" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="120" y="65" text-anchor="middle">1. post_*()</text>
+  <text x="120" y="100" text-anchor="middle" font-size="10" fill="#2e7d32">立即返回(非阻塞)</text>
+
+  <rect x="260" y="40" width="160" height="40" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="340" y="65" text-anchor="middle">2. 网卡执行 WR</text>
+  <text x="340" y="100" text-anchor="middle" font-size="10" fill="#555">DMA / 网络传输</text>
+
+  <rect x="480" y="40" width="160" height="40" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="560" y="65" text-anchor="middle">3. CQE 入 CQ</text>
+
+  <line x1="200" y1="60" x2="260" y2="60" stroke="#555" marker-end="url(#h)"/>
+  <line x1="420" y1="60" x2="480" y2="60" stroke="#555" marker-end="url(#h)"/>
+
+  <rect x="260" y="150" width="200" height="44" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="360" y="170" text-anchor="middle">4. poll_cq / get_*_comp</text>
+  <text x="360" y="187" text-anchor="middle" font-size="11">检查 wc.status</text>
+  <line x1="560" y1="80" x2="430" y2="150" stroke="#ef6c00" marker-end="url(#h)"/>
+  <text x="360" y="228" text-anchor="middle" fill="#c62828">SUCCESS 才算真正完成；否则报错退出</text>
+  <defs><marker id="h" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

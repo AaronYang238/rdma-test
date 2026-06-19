@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="sans-serif" font-size="11">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="720" height="320" fill="#fbfbfd"/>
+  <text x="360" y="20" text-anchor="middle" font-weight="bold" font-size="14">常见故障决策树</text>
+
+  <!-- Start -->
+  <rect x="270" y="32" width="180" height="28" rx="6" fill="#1565c0"/>
+  <text x="360" y="51" text-anchor="middle" fill="white" font-weight="bold">RDMA 程序异常</text>
+
+  <!-- Branch 1: 建链失败 -->
+  <text x="95" y="90" text-anchor="middle" fill="#ef6c00" font-weight="bold">建链失败?</text>
+  <rect x="20" y="100" width="150" height="24" rx="4" fill="#1565c0"/>
+  <text x="95" y="116" text-anchor="middle" fill="white">rdma link show</text>
+  <rect x="20" y="136" width="150" height="24" rx="4" fill="#2e7d32"/>
+  <text x="95" y="152" text-anchor="middle" fill="white">GID table 是否有效?</text>
+  <rect x="20" y="172" width="150" height="24" rx="4" fill="#c62828"/>
+  <text x="95" y="188" text-anchor="middle" fill="white">firewall / SELinux?</text>
+
+  <!-- Branch 2: RNR错误 -->
+  <text x="270" y="90" text-anchor="middle" fill="#ef6c00" font-weight="bold">RNR 错误?</text>
+  <rect x="195" y="100" width="150" height="24" rx="4" fill="#1565c0"/>
+  <text x="270" y="116" text-anchor="middle" fill="white">post_recv 足够?</text>
+  <rect x="195" y="136" width="150" height="24" rx="4" fill="#2e7d32"/>
+  <text x="270" y="152" text-anchor="middle" fill="white">SRQ 是否耗尽?</text>
+  <rect x="195" y="172" width="150" height="24" rx="4" fill="#c62828"/>
+  <text x="270" y="188" text-anchor="middle" fill="white">out_of_buffer 计数器</text>
+
+  <!-- Branch 3: 完成错误 -->
+  <text x="450" y="90" text-anchor="middle" fill="#ef6c00" font-weight="bold">完成错误?</text>
+  <rect x="375" y="100" width="150" height="24" rx="4" fill="#1565c0"/>
+  <text x="450" y="116" text-anchor="middle" fill="white">wc.status 码?</text>
+  <rect x="375" y="136" width="150" height="24" rx="4" fill="#2e7d32"/>
+  <text x="450" y="152" text-anchor="middle" fill="white">MR 权限是否正确?</text>
+  <rect x="375" y="172" width="150" height="24" rx="4" fill="#c62828"/>
+  <text x="450" y="188" text-anchor="middle" fill="white">QP ERROR → RESET</text>
+
+  <!-- Branch 4: 性能不达标 -->
+  <text x="630" y="90" text-anchor="middle" fill="#ef6c00" font-weight="bold">性能不达标?</text>
+  <rect x="555" y="100" width="150" height="24" rx="4" fill="#1565c0"/>
+  <text x="630" y="116" text-anchor="middle" fill="white">busy-poll 模式?</text>
+  <rect x="555" y="136" width="150" height="24" rx="4" fill="#2e7d32"/>
+  <text x="630" y="152" text-anchor="middle" fill="white">inline data 开启?</text>
+  <rect x="555" y="172" width="150" height="24" rx="4" fill="#2e7d32"/>
+  <text x="630" y="188" text-anchor="middle" fill="white">NUMA 绑定?</text>
+
+  <!-- Arrows from start to branches -->
+  <line x1="300" y1="60" x2="120" y2="88" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="330" y1="60" x2="280" y2="88" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="390" y1="60" x2="450" y2="88" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="420" y1="60" x2="610" y2="88" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Branch 1 internal arrows -->
+  <line x1="95" y1="100" x2="95" y2="98" stroke="#555" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="95" y1="124" x2="95" y2="134" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="95" y1="160" x2="95" y2="170" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Branch 2 internal arrows -->
+  <line x1="270" y1="124" x2="270" y2="134" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="270" y1="160" x2="270" y2="170" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Branch 3 internal arrows -->
+  <line x1="450" y1="124" x2="450" y2="134" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="450" y1="160" x2="450" y2="170" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Branch 4 internal arrows -->
+  <line x1="630" y1="124" x2="630" y2="134" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="630" y1="160" x2="630" y2="170" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Yes labels -->
+  <text x="195" y="80" fill="#ef6c00" font-size="10">Yes →</text>
+  <text x="340" y="80" fill="#ef6c00" font-size="10">Yes →</text>
+  <text x="510" y="80" fill="#ef6c00" font-size="10">Yes →</text>
+
+  <!-- Summary row -->
+  <rect x="20" y="230" width="680" height="70" rx="6" fill="#eceff1" stroke="#b0bec5" stroke-width="1"/>
+  <text x="360" y="248" text-anchor="middle" font-weight="bold" fill="#37474f">排障原则</text>
+  <text x="40" y="264" fill="#37474f" font-size="10">1. 先确认硬件链路（rdma link show → PORT_ACTIVE）</text>
+  <text x="40" y="278" fill="#37474f" font-size="10">2. 再检查协议层（GID / post_recv / wc.status）</text>
+  <text x="40" y="292" fill="#37474f" font-size="10">3. 最后做性能调优（NUMA / inline / busy-poll / selective signaling）</text>
+</svg>

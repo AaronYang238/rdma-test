@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="180" y="22" text-anchor="middle" font-weight="bold">Client (计时)</text>
+  <text x="540" y="22" text-anchor="middle" font-weight="bold">Server (echo)</text>
+  <line x1="180" y1="32" x2="180" y2="270" stroke="#1565c0" stroke-width="2"/>
+  <line x1="540" y1="32" x2="540" y2="270" stroke="#5e35b1" stroke-width="2"/>
+
+  <text x="180" y="50" text-anchor="middle" font-size="11" fill="#2e7d32">post_recv(pong)</text>
+  <text x="540" y="50" text-anchor="middle" font-size="11" fill="#2e7d32">post_recv(ping)</text>
+
+  <text x="120" y="74" font-size="11" fill="#c62828">t0 = now_ns()</text>
+
+  <!-- iteration i -->
+  <line x1="180" y1="92" x2="540" y2="92" stroke="#1565c0" marker-end="url(#p)"/>
+  <text x="360" y="85" text-anchor="middle">SEND ping →</text>
+  <line x1="540" y1="130" x2="180" y2="130" stroke="#5e35b1" marker-end="url(#q)"/>
+  <text x="360" y="123" text-anchor="middle">← SEND pong (echo)</text>
+
+  <rect x="300" y="148" width="120" height="26" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="360" y="166" text-anchor="middle" font-size="11">一次 RTT</text>
+
+  <text x="360" y="200" text-anchor="middle" fill="#555">循环 N 次（两端各预投递下一发）</text>
+  <text x="120" y="226" font-size="11" fill="#c62828">t1 = now_ns()</text>
+  <text x="360" y="252" text-anchor="middle" fill="#2e7d32">avg RTT = (t1 - t0) / N · 单向 ≈ RTT/2</text>
+  <defs>
+    <marker id="p" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#1565c0"/></marker>
+    <marker id="q" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#5e35b1"/></marker>
+  </defs>
+</svg>

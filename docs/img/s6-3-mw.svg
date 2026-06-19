@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" font-family="sans-serif" font-size="12">
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">Memory Windows：MR 子区域动态授权</text>
+
+  <!-- MR -->
+  <rect x="230" y="44" width="260" height="44" fill="#bbdefb" stroke="#1565c0"/>
+  <text x="360" y="65" text-anchor="middle" font-weight="bold" fill="#1565c0">父 MR（完整地址范围 + rkey）</text>
+  <text x="360" y="81" text-anchor="middle" font-size="10" fill="#1565c0">ibv_reg_mr() — 内部不对外暴露 rkey</text>
+
+  <!-- MW1 -->
+  <rect x="80" y="136" width="200" height="44" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="180" y="157" text-anchor="middle" font-weight="bold" fill="#2e7d32">MW1（子区域 A）</text>
+  <text x="180" y="172" text-anchor="middle" font-size="10">ibv_bind_mw() → 新 rkey1</text>
+
+  <!-- MW2 -->
+  <rect x="440" y="136" width="200" height="44" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="540" y="157" text-anchor="middle" font-weight="bold" fill="#2e7d32">MW2（子区域 B）</text>
+  <text x="540" y="172" text-anchor="middle" font-size="10">ibv_bind_mw() → 新 rkey2</text>
+
+  <!-- arrows MR -> MW -->
+  <line x1="310" y1="88" x2="210" y2="136" stroke="#2e7d32" marker-end="url(#g)"/>
+  <line x1="410" y1="88" x2="510" y2="136" stroke="#2e7d32" marker-end="url(#g)"/>
+
+  <!-- Clients -->
+  <rect x="80" y="210" width="200" height="36" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="180" y="233" text-anchor="middle" font-size="11" fill="#ef6c00">客户端 A（持有 rkey1）</text>
+  <rect x="440" y="210" width="200" height="36" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="540" y="233" text-anchor="middle" font-size="11" fill="#ef6c00">客户端 B（持有 rkey2）</text>
+
+  <line x1="180" y1="180" x2="180" y2="210" stroke="#ef6c00" marker-end="url(#o)"/>
+  <line x1="540" y1="180" x2="540" y2="210" stroke="#ef6c00" marker-end="url(#o)"/>
+
+  <text x="360" y="262" text-anchor="middle" fill="#555" font-size="11">撤销授权只需 ibv_dealloc_mw(mw1)，MR 本身无需重建；rkey 轮换可防重放攻击</text>
+  <defs>
+    <marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2e7d32"/></marker>
+    <marker id="o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#ef6c00"/></marker>
+  </defs>
+</svg>
