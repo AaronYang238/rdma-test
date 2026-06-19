@@ -89,10 +89,14 @@
 
 > 目标：教会如何在真实故障下不丢数据、不悬挂。
 
-- [ ] 5.1 错误完成处理：`IBV_WC_*` 错误码、QP 进入 ERROR 态后的恢复/重建。
-- [ ] 5.2 重传与超时：`retry_cnt` / `rnr_retry` / `timeout` 调参与含义。
-- [ ] 5.3 **拥塞控制**：PFC、ECN、DCQCN 概览与可观测计数器。SVG：DCQCN 反馈环。
-- [ ] 5.4 资源生命周期与泄漏排查：MR/QP/CQ 销毁顺序、`fork()` 与 `madvise` 陷阱。
+- [x] 5.1 错误完成处理：`IBV_WC_*` 错误码、QP 进入 ERROR 态后的恢复/重建。
+      (SVG: docs/img/s5-1-wc-error.svg)
+- [x] 5.2 重传与超时：`retry_cnt` / `rnr_retry` / `timeout` 调参与含义。
+      (SVG: docs/img/s5-2-retry.svg)
+- [x] 5.3 **拥塞控制**：PFC、ECN、DCQCN 概览与可观测计数器。SVG：DCQCN 反馈环。
+      (SVG: docs/img/s5-3-dcqcn.svg)
+- [x] 5.4 资源生命周期与泄漏排查：MR/QP/CQ 销毁顺序、`fork()` 与 `madvise` 陷阱。
+      (SVG: docs/img/s5-4-lifecycle.svg) 文档：`docs/stage5-reliability.md`。
 
 ---
 

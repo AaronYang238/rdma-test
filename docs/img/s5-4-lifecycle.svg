@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c62828"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="300" fill="#fbfbfd"/>
+
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="13">
+    RDMA 资源生命周期与销毁顺序
+  </text>
+
+  <!-- ibv_context (bottom layer) -->
+  <rect x="230" y="230" width="260" height="36" fill="#1565c0" rx="6"/>
+  <text x="360" y="252" text-anchor="middle" fill="white" font-weight="bold">ibv_context</text>
+  <text x="360" y="263" text-anchor="middle" fill="white" font-size="10">ibv_close_device() — 最后关闭</text>
+
+  <!-- PD (above context) -->
+  <rect x="100" y="165" width="160" height="36" fill="#1565c0" rx="6"/>
+  <text x="180" y="186" text-anchor="middle" fill="white" font-weight="bold">PD</text>
+  <text x="180" y="197" text-anchor="middle" fill="white" font-size="10">ibv_dealloc_pd()</text>
+
+  <!-- CQ (above context, right side) -->
+  <rect x="460" y="165" width="160" height="36" fill="#1565c0" rx="6"/>
+  <text x="540" y="186" text-anchor="middle" fill="white" font-weight="bold">CQ</text>
+  <text x="540" y="197" text-anchor="middle" fill="white" font-size="10">ibv_destroy_cq()</text>
+
+  <!-- MR (above PD, left) -->
+  <rect x="20" y="98" width="130" height="36" fill="#1565c0" rx="6"/>
+  <text x="85" y="119" text-anchor="middle" fill="white" font-weight="bold">MR</text>
+  <text x="85" y="130" text-anchor="middle" fill="white" font-size="10">ibv_dereg_mr()</text>
+
+  <!-- QP (above PD+CQ, center) -->
+  <rect x="290" y="98" width="160" height="36" fill="#1565c0" rx="6"/>
+  <text x="370" y="119" text-anchor="middle" fill="white" font-weight="bold">QP</text>
+  <text x="370" y="130" text-anchor="middle" fill="white" font-size="10">ibv_destroy_qp()</text>
+
+  <!-- SRQ (above PD, right of MR) -->
+  <rect x="170" y="98" width="100" height="36" fill="#1565c0" rx="6"/>
+  <text x="220" y="119" text-anchor="middle" fill="white" font-weight="bold">SRQ</text>
+  <text x="220" y="130" text-anchor="middle" fill="white" font-size="10">ibv_destroy_srq()</text>
+
+  <!-- Arrows (must destroy before = arrow pointing to what must be destroyed first) -->
+  <!-- MR → PD: MR must be destroyed before PD -->
+  <line x1="85" y1="134" x2="140" y2="165" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="96" y="158" fill="#c62828" font-size="9">先销毁 MR</text>
+
+  <!-- SRQ → PD -->
+  <line x1="205" y1="134" x2="190" y2="165" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- QP → PD -->
+  <line x1="330" y1="134" x2="225" y2="165" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="264" y="148" fill="#c62828" font-size="9">先销毁 QP</text>
+
+  <!-- QP → CQ -->
+  <line x1="420" y1="134" x2="490" y2="165" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- PD → ibv_context -->
+  <line x1="180" y1="201" x2="285" y2="230" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- CQ → ibv_context -->
+  <line x1="520" y1="201" x2="440" y2="230" stroke="#c62828" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Destroy order label -->
+  <text x="600" y="55" text-anchor="middle" fill="#c62828" font-size="11" font-weight="bold">销毁顺序</text>
+  <text x="600" y="70" text-anchor="middle" fill="#c62828" font-size="10">箭头方向 = 先销毁</text>
+  <text x="600" y="84" text-anchor="middle" fill="#555" font-size="10">违反顺序 → EBUSY</text>
+
+  <!-- Warning note box -->
+  <rect x="20" y="218" width="195" height="72" fill="#fff3e0" stroke="#e65100" stroke-width="1.5" rx="6"/>
+  <text x="117" y="234" text-anchor="middle" fill="#e65100" font-weight="bold" font-size="11">⚠ fork() 陷阱</text>
+  <text x="117" y="250" text-anchor="middle" fill="#555" font-size="10">子进程继承 FD</text>
+  <text x="117" y="263" text-anchor="middle" fill="#555" font-size="10">但 pin 页丢失</text>
+  <text x="117" y="276" text-anchor="middle" fill="#e65100" font-size="10">→ ibv_fork_init()</text>
+  <text x="117" y="286" text-anchor="middle" fill="#555" font-size="9">madvise(MADV_DONTNEED) 静默 unpin</text>
+</svg>

@@ -38,6 +38,7 @@
 > - [`docs/stage1-hardware-model.md`](docs/stage1-hardware-model.md) — 阶段一：硬件模型（MMIO/DMA/WC/分层/RC-UC-UD/MPT-MTT/fence）
 > - [`docs/stage3-performance.md`](docs/stage3-performance.md) — 阶段三：性能工程（选择性 signaling/poll vs event/inline/批处理/多 QP/基准）
 > - [`docs/stage4-scalability.md`](docs/stage4-scalability.md) — 阶段四：可扩展架构（SRQ/共享 CQ/手工 QP 状态机/UD-DC）
+> - [`docs/stage5-reliability.md`](docs/stage5-reliability.md) — 阶段五：可靠性与生产化（WC 错误/重传/DCQCN/资源生命周期）
 
 ---
 
