@@ -73,12 +73,15 @@
 
 > 目标：从两进程 demo 走向支撑万级连接的服务端结构。
 
-- [ ] 4.1 **SRQ（Shared Receive Queue）**：降低海量连接的 RQ 内存。
-- [ ] 4.2 **共享 CQ + 单线程事件循环**：一个 CQ 服务多 QP。
-- [ ] 4.3 连接管理规模化：`rdma_cm` 事件通道 vs 手工 QP 状态机
+- [x] 4.1 **SRQ（Shared Receive Queue）**：降低海量连接的 RQ 内存。
+      SVG：`docs/img/s4-1-srq.svg`。
+- [x] 4.2 **共享 CQ + 单线程事件循环**：一个 CQ 服务多 QP。
+      SVG：`docs/img/s4-2-shared-cq.svg`。
+- [x] 4.3 连接管理规模化：`rdma_cm` 事件通道 vs 手工 QP 状态机
       (`INIT→RTR→RTS`)；带外 TCP 交换 GID/QPN/PSN 的经典做法。
-      SVG：手工 QP 状态迁移图。
-- [ ] 4.4 **UD / DC** 处理一对多与连接爆炸；DCT 的取舍。
+      SVG：`docs/img/s4-3-qp-state.svg`。文档：`docs/stage4-scalability.md`。
+- [x] 4.4 **UD / DC** 处理一对多与连接爆炸；DCT 的取舍。
+      SVG：`docs/img/s4-4-ud-dc.svg`。
 
 ---
 

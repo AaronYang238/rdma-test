@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">SRQ：多 QP 共享一个接收队列</text>
+
+  <!-- without SRQ -->
+  <text x="180" y="46" text-anchor="middle" fill="#c62828">无 SRQ：每个 QP 独立 RQ（内存浪费）</text>
+  <rect x="30"  y="60" width="80" height="80" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="70"  y="84" text-anchor="middle" font-size="11">QP₀</text>
+  <rect x="35"  y="96" width="70" height="36" fill="#fff" stroke="#c62828"/>
+  <text x="70"  y="119" text-anchor="middle" font-size="10">RQ(N WR)</text>
+  <rect x="130" y="60" width="80" height="80" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="170" y="84" text-anchor="middle" font-size="11">QP₁</text>
+  <rect x="135" y="96" width="70" height="36" fill="#fff" stroke="#c62828"/>
+  <text x="170" y="119" text-anchor="middle" font-size="10">RQ(N WR)</text>
+  <rect x="230" y="60" width="80" height="80" fill="#ffcdd2" stroke="#c62828"/>
+  <text x="270" y="84" text-anchor="middle" font-size="11">QP₂</text>
+  <rect x="235" y="96" width="70" height="36" fill="#fff" stroke="#c62828"/>
+  <text x="270" y="119" text-anchor="middle" font-size="10">RQ(N WR)</text>
+  <text x="170" y="162" text-anchor="middle" fill="#c62828" font-size="11">内存 = QP数 × N，连接越多越浪费</text>
+
+  <!-- with SRQ -->
+  <text x="530" y="46" text-anchor="middle" fill="#2e7d32">有 SRQ：共享一个 RQ</text>
+  <rect x="400" y="60" width="70" height="60" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="435" y="88" text-anchor="middle" font-size="11">QP₀</text>
+  <rect x="490" y="60" width="70" height="60" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="525" y="88" text-anchor="middle" font-size="11">QP₁</text>
+  <rect x="580" y="60" width="70" height="60" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="615" y="88" text-anchor="middle" font-size="11">QP₂</text>
+  <rect x="450" y="148" width="160" height="44" fill="#c8e6c9" stroke="#2e7d32"/>
+  <text x="530" y="170" text-anchor="middle" font-size="11">SRQ（共享接收队列）</text>
+  <text x="530" y="186" text-anchor="middle" font-size="10">仅一份 WR 预投递</text>
+  <line x1="435" y1="120" x2="480" y2="148" stroke="#2e7d32" marker-end="url(#g)"/>
+  <line x1="525" y1="120" x2="520" y2="148" stroke="#2e7d32" marker-end="url(#g)"/>
+  <line x1="615" y1="120" x2="565" y2="148" stroke="#2e7d32" marker-end="url(#g)"/>
+  <text x="530" y="222" text-anchor="middle" fill="#2e7d32" font-size="11">内存 = 单份 N，无论多少 QP</text>
+
+  <text x="360" y="268" text-anchor="middle" fill="#555" font-size="11">ibv_create_srq → ibv_post_srq_recv；wc.qp_num 区分是哪个 QP 的消息</text>
+  <text x="360" y="286" text-anchor="middle" fill="#ef6c00" font-size="11">SRQ 空耗尽时所有关联 QP 都收不到消息——需维持足够的预投递深度</text>
+  <defs><marker id="g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2e7d32"/></marker></defs>
+</svg>
