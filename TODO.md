@@ -128,10 +128,14 @@
 
 ## 阶段八 · 调试与可观测性（工具箱）
 
-- [ ] 8.1 `ibv_devinfo` / `rdma` (iproute2) / `ibstat` 读懂设备能力。
-- [ ] 8.2 计数器：`/sys/class/infiniband/*/ports/*/counters`、`hw_counters`。
-- [ ] 8.3 抓包与追踪：`ibdump`、`tcpdump`(RoCE)、`perf`、provider 调试日志。
-- [ ] 8.4 常见故障决策树：建链失败 / RNR / 完成错误 / 性能不达标。SVG：排障流程图。
+- [x] 8.1 `ibv_devinfo` / `rdma` (iproute2) / `ibstat` 读懂设备能力。
+      SVG：`docs/img/s8-1-devinfo.svg`。
+- [x] 8.2 计数器：`/sys/class/infiniband/*/ports/*/counters`、`hw_counters`。
+      SVG：`docs/img/s8-2-counters.svg`。
+- [x] 8.3 抓包与追踪：`ibdump`、`tcpdump`(RoCE)、`perf`、provider 调试日志。
+      SVG：`docs/img/s8-3-trace.svg`。
+- [x] 8.4 常见故障决策树：建链失败 / RNR / 完成错误 / 性能不达标。SVG：排障流程图。
+      SVG：`docs/img/s8-4-troubleshoot.svg`。文档：`docs/stage8-debugging.md`。
 
 ---
 

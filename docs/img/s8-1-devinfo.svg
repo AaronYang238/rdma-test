@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="720" height="280" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="14">设备能力查询工具</text>
+
+  <!-- ibv_devinfo box -->
+  <rect x="30" y="50" width="160" height="44" rx="6" fill="#1565c0"/>
+  <text x="110" y="68" text-anchor="middle" fill="white" font-weight="bold">ibv_devinfo</text>
+  <text x="110" y="86" text-anchor="middle" fill="white" font-size="11">libibverbs 诊断工具</text>
+
+  <!-- ibv_devinfo output -->
+  <rect x="20" y="112" width="180" height="90" rx="4" fill="#2e7d32"/>
+  <text x="110" y="128" text-anchor="middle" fill="white" font-weight="bold" font-size="11">输出字段</text>
+  <text x="30" y="146" fill="white" font-size="10">port_state / active_mtu</text>
+  <text x="30" y="160" fill="white" font-size="10">max_qp / max_cq</text>
+  <text x="30" y="174" fill="white" font-size="10">max_mr / max_mr_size</text>
+  <text x="30" y="188" fill="white" font-size="10">gid_tbl_len / link_layer</text>
+
+  <!-- rdma (iproute2) box -->
+  <rect x="280" y="50" width="160" height="44" rx="6" fill="#1565c0"/>
+  <text x="360" y="68" text-anchor="middle" fill="white" font-weight="bold">rdma (iproute2)</text>
+  <text x="360" y="86" text-anchor="middle" fill="white" font-size="11">netlink 接口</text>
+
+  <!-- rdma output -->
+  <rect x="270" y="112" width="180" height="90" rx="4" fill="#2e7d32"/>
+  <text x="360" y="128" text-anchor="middle" fill="white" font-weight="bold" font-size="11">子命令</text>
+  <text x="280" y="146" fill="white" font-size="10">rdma link show</text>
+  <text x="280" y="160" fill="white" font-size="10">rdma dev show</text>
+  <text x="280" y="174" fill="white" font-size="10">rdma stat show link</text>
+  <text x="280" y="188" fill="white" font-size="10">rdma stat（高频采样）</text>
+
+  <!-- ibstat box -->
+  <rect x="530" y="50" width="160" height="44" rx="6" fill="#1565c0"/>
+  <text x="610" y="68" text-anchor="middle" fill="white" font-weight="bold">ibstat</text>
+  <text x="610" y="86" text-anchor="middle" fill="white" font-size="11">IB 链路层信息</text>
+
+  <!-- ibstat output -->
+  <rect x="520" y="112" width="180" height="90" rx="4" fill="#2e7d32"/>
+  <text x="610" y="128" text-anchor="middle" fill="white" font-weight="bold" font-size="11">输出字段</text>
+  <text x="530" y="146" fill="white" font-size="10">CA state / Rate</text>
+  <text x="530" y="160" fill="white" font-size="10">Active Width / LID</text>
+  <text x="530" y="174" fill="white" font-size="10">GID / Physical state</text>
+  <text x="530" y="188" fill="white" font-size="10">Link layer / Port GUID</text>
+
+  <!-- Central box -->
+  <rect x="240" y="230" width="240" height="36" rx="6" fill="#37474f"/>
+  <text x="360" y="253" text-anchor="middle" fill="white" font-weight="bold">设备能力 / 状态</text>
+
+  <!-- Arrows from tool boxes to output boxes -->
+  <line x1="110" y1="94" x2="110" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="360" y1="94" x2="360" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="610" y1="94" x2="610" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrows from output boxes to central -->
+  <line x1="150" y1="202" x2="295" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="360" y1="202" x2="360" y2="228" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="570" y1="202" x2="430" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg>
