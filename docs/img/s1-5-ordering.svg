@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="330" font-family="sans-serif" font-size="12">
+  <rect width="720" height="330" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">RC 下 SQ 内操作的排序与 fence</text>
+
+  <!-- SQ timeline -->
+  <line x1="80" y1="80" x2="660" y2="80" stroke="#1565c0" stroke-width="2" marker-end="url(#a)"/>
+  <text x="70" y="84" text-anchor="end" font-size="11">SQ</text>
+  <rect x="100" y="64" width="90" height="32" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="145" y="85" text-anchor="middle" font-size="11">WRITE</text>
+  <rect x="220" y="64" width="90" height="32" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="265" y="85" text-anchor="middle" font-size="11">WRITE</text>
+  <rect x="340" y="64" width="110" height="32" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="395" y="85" text-anchor="middle" font-size="11">READ</text>
+  <rect x="480" y="64" width="120" height="32" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="540" y="85" text-anchor="middle" font-size="11">SEND(通知)</text>
+
+  <text x="360" y="130" text-anchor="middle" fill="#555" font-size="11">同一 QP 内按投递顺序处理；但"完成"不代表对端已可见数据顺序一致</text>
+
+  <!-- guarantees -->
+  <rect x="60" y="150" width="600" height="56" fill="#fbfbfd" stroke="#90a4ae"/>
+  <text x="360" y="172" text-anchor="middle" font-size="11" fill="#2e7d32">保证：先 WRITE 后 SEND，对端按序看到——可用 SEND/IMM 当"数据就绪"栅栏</text>
+  <text x="360" y="192" text-anchor="middle" font-size="11" fill="#c62828">注意：READ 返回 ≠ 之前 WRITE 已落地；需要顺序时加 IBV_SEND_FENCE</text>
+
+  <!-- fence -->
+  <rect x="240" y="230" width="240" height="44" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="360" y="252" text-anchor="middle" font-size="11">IBV_SEND_FENCE</text>
+  <text x="360" y="268" text-anchor="middle" font-size="10" fill="#999">本 WR 等前序 READ/ATOMIC 完成后再发</text>
+
+  <text x="360" y="306" text-anchor="middle" fill="#ef6c00" font-size="11">PCIe relaxed ordering 可能重排；强顺序场景务必显式 fence / 用完成事件同步</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#1565c0"/></marker></defs>
+</svg>

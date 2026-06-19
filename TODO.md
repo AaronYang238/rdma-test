@@ -24,16 +24,17 @@
 
 > 目标：让高级工程师建立**准确的硬件心智模型**，而非 API 罗列。
 
-- [ ] 1.1 内核旁路与零拷贝的**真实代价**：MMIO doorbell、DMA、PCIe 往返、
-      WC vs WB 内存。SVG：数据路径与 PCIe 事务时序。
-- [ ] 1.2 Verbs 软硬件分层：libibverbs / provider(mlx5) / uverbs / 硬件。
-      SVG：用户态—内核—硬件三层图。
-- [ ] 1.3 传输类型对比 **RC / UC / UD / XRC / DC**：可靠性、扩展性、报文上限、
-      QP 数量代价。SVG：四象限（可靠性 × 连接性）。
-- [ ] 1.4 内存与一致性模型：MR/MTT/MPT、地址翻译、`IBV_ACCESS_*` 全集、
-      PCIe relaxed ordering 对 RDMA 顺序语义的影响。SVG：MPT/MTT 翻译链。
-- [ ] 1.5 完成语义与排序保证：RC 下 WRITE/READ/SEND 的顺序、fence、
-      `IBV_SEND_FENCE`。SVG：SQ 内操作排序时间线。
+- [x] 1.1 内核旁路与零拷贝的**真实代价**：MMIO doorbell、DMA、PCIe 往返、
+      WC vs WB 内存。SVG：`docs/img/s1-1-datapath.svg`。
+- [x] 1.2 Verbs 软硬件分层：libibverbs / provider(mlx5) / uverbs / 硬件。
+      SVG：`docs/img/s1-2-verbs-layers.svg`。
+- [x] 1.3 传输类型对比 **RC / UC / UD / XRC / DC**：可靠性、扩展性、报文上限、
+      QP 数量代价。SVG：`docs/img/s1-3-transports.svg`。
+- [x] 1.4 内存与一致性模型：MR/MTT/MPT、地址翻译、`IBV_ACCESS_*` 全集。
+      SVG：`docs/img/s1-4-address-translation.svg`。
+- [x] 1.5 完成语义与排序保证：RC 下 WRITE/READ/SEND 的顺序、fence、
+      `IBV_SEND_FENCE`、PCIe relaxed ordering。SVG：`docs/img/s1-5-ordering.svg`。
+      文档：`docs/stage1-hardware-model.md`。
 
 ---
 

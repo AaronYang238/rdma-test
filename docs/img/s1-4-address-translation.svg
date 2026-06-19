@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="320" font-family="sans-serif" font-size="12">
+  <rect width="720" height="320" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">RNIC 地址翻译与鉴权链（MPT / MTT）</text>
+
+  <rect x="40" y="60" width="180" height="70" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="130" y="84" text-anchor="middle" font-size="11">远端请求</text>
+  <text x="130" y="102" text-anchor="middle" font-size="10">rkey + 虚拟地址 VA</text>
+  <text x="130" y="118" text-anchor="middle" font-size="10">+ 长度</text>
+
+  <rect x="270" y="50" width="170" height="90" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="355" y="72" text-anchor="middle" font-weight="bold">MPT</text>
+  <text x="355" y="90" text-anchor="middle" font-size="10">按 rkey 查保护表项</text>
+  <text x="355" y="106" text-anchor="middle" font-size="10">校验 PD / 权限 / 范围</text>
+  <text x="355" y="122" text-anchor="middle" font-size="10" fill="#c62828">失败→ 完成错误</text>
+
+  <rect x="490" y="50" width="170" height="90" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="575" y="72" text-anchor="middle" font-weight="bold">MTT</text>
+  <text x="575" y="90" text-anchor="middle" font-size="10">VA → 物理页 PA</text>
+  <text x="575" y="106" text-anchor="middle" font-size="10">分散物理页表</text>
+  <text x="575" y="122" text-anchor="middle" font-size="10">(reg_mr 时建立)</text>
+
+  <line x1="220" y1="95" x2="270" y2="95" stroke="#555" marker-end="url(#a)"/>
+  <line x1="440" y1="95" x2="490" y2="95" stroke="#555" marker-end="url(#a)"/>
+
+  <rect x="490" y="170" width="170" height="40" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="575" y="195" text-anchor="middle" font-size="11">DMA 访问物理内存</text>
+  <line x1="575" y1="140" x2="575" y2="170" stroke="#2e7d32" marker-end="url(#g)"/>
+
+  <text x="360" y="250" text-anchor="middle" fill="#555" font-size="11">reg_mr 把页 pin 住并填 MTT；rkey 索引 MPT 完成鉴权——这是单边操作的安全基石</text>
+  <text x="360" y="278" text-anchor="middle" fill="#ef6c00" font-size="11">大 MR / HugePage 提升 MTT 命中率；权限位 IBV_ACCESS_* 决定对端能做什么</text>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker>
+    <marker id="g" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#2e7d32"/></marker>
+  </defs>
+</svg>
