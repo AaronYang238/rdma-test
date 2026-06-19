@@ -5,6 +5,12 @@
 - `rdma_server`：等待连接，接收客户端内存信息，执行一次 `RDMA Write` 写入客户端内存。
 - `rdma_client`：建立连接，注册可远端写入内存，发送本地 MR 信息，接收 ACK 并打印被远端写入后的内容。
 
+> 📘 **想系统学习 RDMA？** 请阅读配套教程 **[CLAUDE.md](./CLAUDE.md)**：它以本仓库
+> 代码为实例，逐节讲解 RDMA 的**主要原理**（内核旁路 / 零拷贝、PD/MR/QP/CQ、
+> lkey/rkey）、**编程使用**（post/poll、SEND/RECV 双边、WRITE/READ 单边）与
+> **代码实现**，并为**每一节配有一张 SVG 示意图**。下方 README 提供 API 速查与
+> 运行说明。
+
 ## 1. 你会看到的核心 RDMA API
 
 ### 连接管理（rdma_cm）
