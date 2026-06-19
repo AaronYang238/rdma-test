@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow-down" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L4,7 L7,1" fill="none" stroke="#333" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-up" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse">
+      <path d="M1,7 L4,1 L7,7" fill="none" stroke="#c62828" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L4,7 L7,1" fill="none" stroke="#2e7d32" stroke-width="1.2"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L4,7 L7,1" fill="none" stroke="#ef6c00" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="300" fill="#fbfbfd"/>
+
+  <!-- Title -->
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="13">注册缓存：消除重复 reg/dereg 开销</text>
+
+  <!-- Panel divider -->
+  <line x1="360" y1="35" x2="360" y2="290" stroke="#aaa" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- === Left panel: No cache === -->
+  <text x="170" y="48" text-anchor="middle" font-weight="bold" font-size="12" fill="#c62828">无缓存</text>
+
+  <!-- ibv_reg_mr call -->
+  <rect x="50" y="58" width="240" height="36" rx="4" fill="#ffebee" stroke="#c62828" stroke-width="1.5"/>
+  <text x="170" y="74" text-anchor="middle" font-weight="bold" fill="#c62828">ibv_reg_mr(pd, addr, len, flags)</text>
+  <text x="170" y="88" text-anchor="middle" fill="#555">用户态发起注册</text>
+
+  <!-- arrow down -->
+  <line x1="170" y1="94" x2="170" y2="108" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)"/>
+
+  <!-- kernel pin pages -->
+  <rect x="50" y="108" width="240" height="36" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="170" y="124" text-anchor="middle" font-weight="bold" fill="#e65100">内核 mlock / pin 页面</text>
+  <text x="170" y="138" text-anchor="middle" fill="#555">防止页面被换出，系统调用开销</text>
+
+  <!-- arrow down -->
+  <line x1="170" y1="144" x2="170" y2="158" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)"/>
+
+  <!-- MTT/MPT build -->
+  <rect x="50" y="158" width="240" height="36" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="170" y="174" text-anchor="middle" font-weight="bold" fill="#e65100">构建 MTT / MPT 表项</text>
+  <text x="170" y="188" text-anchor="middle" fill="#555">网卡地址翻译表，按页遍历</text>
+
+  <!-- arrow down -->
+  <line x1="170" y1="194" x2="170" y2="208" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)"/>
+
+  <!-- DMA map -->
+  <rect x="50" y="208" width="240" height="36" rx="4" fill="#fff3e0" stroke="#e65100" stroke-width="1.5"/>
+  <text x="170" y="224" text-anchor="middle" font-weight="bold" fill="#e65100">IOMMU DMA 映射</text>
+  <text x="170" y="238" text-anchor="middle" fill="#555">建立 IOVA → PA 映射</text>
+
+  <!-- Total cost -->
+  <text x="170" y="262" text-anchor="middle" font-weight="bold" fill="#c62828">总开销：~1–10 µs / 次调用</text>
+  <text x="170" y="278" text-anchor="middle" fill="#c62828">（随 MR 大小线性增长）</text>
+
+  <!-- ibv_dereg_mr back arrow -->
+  <path d="M36,244 L20,244 L20,62 L36,62" fill="none" stroke="#c62828" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-up)"/>
+  <text x="14" y="155" text-anchor="middle" fill="#c62828" font-size="10" transform="rotate(-90,14,155)">ibv_dereg_mr（同样昂贵）</text>
+
+  <!-- === Right panel: Registration cache === -->
+  <text x="540" y="48" text-anchor="middle" font-weight="bold" font-size="12" fill="#2e7d32">注册缓存（Registration Cache）</text>
+
+  <!-- App buffer -->
+  <rect x="400" y="58" width="280" height="36" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="540" y="74" text-anchor="middle" font-weight="bold" fill="#2e7d32">应用层请求注册</text>
+  <text x="540" y="88" text-anchor="middle" fill="#555">ibv_reg_mr_cache(addr, len, flags)</text>
+
+  <!-- arrow down to diamond -->
+  <line x1="540" y1="94" x2="540" y2="113" stroke="#333" stroke-width="1.5" marker-end="url(#arrow-down)"/>
+
+  <!-- Cache lookup diamond -->
+  <polygon points="540,113 580,138 540,163 500,138" fill="#fff9c4" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="540" y="133" text-anchor="middle" font-weight="bold" fill="#f57f17" font-size="11">缓存</text>
+  <text x="540" y="148" text-anchor="middle" font-weight="bold" fill="#f57f17" font-size="11">命中？</text>
+
+  <!-- Hit path (left, green) -->
+  <line x1="500" y1="138" x2="430" y2="138" stroke="#2e7d32" stroke-width="1.5"/>
+  <line x1="430" y1="138" x2="430" y2="188" stroke="#2e7d32" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="463" y="133" text-anchor="middle" fill="#2e7d32" font-size="11">命中</text>
+
+  <!-- Hit result box -->
+  <rect x="378" y="188" width="104" height="44" rx="4" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="430" y="205" text-anchor="middle" font-weight="bold" fill="#2e7d32" font-size="11">复用已有 MR</text>
+  <text x="430" y="219" text-anchor="middle" fill="#2e7d32" font-size="11">refcount++</text>
+  <text x="430" y="232" text-anchor="middle" fill="#2e7d32" font-size="10">⏱ ~100 ns</text>
+
+  <!-- Miss path (right, orange) -->
+  <line x1="580" y1="138" x2="640" y2="138" stroke="#ef6c00" stroke-width="1.5"/>
+  <line x1="640" y1="138" x2="640" y2="188" stroke="#ef6c00" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <text x="607" y="133" text-anchor="middle" fill="#ef6c00" font-size="11">未命中</text>
+
+  <!-- Miss result box -->
+  <rect x="582" y="188" width="116" height="44" rx="4" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="640" y="205" text-anchor="middle" font-weight="bold" fill="#ef6c00" font-size="11">ibv_reg_mr</text>
+  <text x="640" y="219" text-anchor="middle" fill="#ef6c00" font-size="11">存入缓存</text>
+  <text x="640" y="232" text-anchor="middle" fill="#ef6c00" font-size="10">⏱ 1–10 µs</text>
+
+  <!-- LRU eviction note -->
+  <rect x="395" y="248" width="290" height="30" rx="4" fill="#ede7f6" stroke="#6a1b9a" stroke-width="1"/>
+  <text x="540" y="262" text-anchor="middle" fill="#6a1b9a" font-size="11">缓存满时 LRU 淘汰：dereg 最久未用 MR</text>
+  <text x="540" y="276" text-anchor="middle" fill="#6a1b9a" font-size="10">释放时 refcount-- → 0 才真正 dereg</text>
+</svg>

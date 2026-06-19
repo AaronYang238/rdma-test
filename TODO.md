@@ -102,10 +102,14 @@
 
 ## 阶段六 · 高级内存管理
 
-- [ ] 6.1 **注册开销与缓存**：reg/dereg 成本、注册缓存（registration cache）设计。
-- [ ] 6.2 **ODP（On-Demand Paging）**：免 pin 内存、缺页处理与代价。
-- [ ] 6.3 **Memory Windows**：动态细粒度授权 rkey，缩小攻击面。
-- [ ] 6.4 **HugePage / 大 MR / 连续内存**对 MTT 命中率与 TLB 的影响。
+- [x] 6.1 **注册开销与缓存**：reg/dereg 成本、注册缓存（registration cache）设计。
+      SVG：`docs/img/s6-1-reg-cache.svg`。
+- [x] 6.2 **ODP（On-Demand Paging）**：免 pin 内存、缺页处理与代价。
+      SVG：`docs/img/s6-2-odp.svg`。
+- [x] 6.3 **Memory Windows**：动态细粒度授权 rkey，缩小攻击面。
+      SVG：`docs/img/s6-3-mw.svg`。
+- [x] 6.4 **HugePage / 大 MR / 连续内存**对 MTT 命中率与 TLB 的影响。
+      SVG：`docs/img/s6-4-hugepage.svg`。文档：`docs/stage6-memory.md`。
 
 ---
 
