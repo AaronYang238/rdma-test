@@ -8,13 +8,15 @@
 
 ## 0. 编写约定（贯穿全程）
 
-- [ ] 每章一个独立、可编译运行的 `examples/<NN>-<topic>/`，配 `README.md` 与
-      `Makefile`，**循序递进**（后章复用前章封装）。
-- [ ] 每节配一张 **SVG 原理图**（沿用 `CLAUDE.md` 既有约定）。
+- [x] 每章一个独立、可编译运行的 `examples/<NN>-<topic>/`，配 `README.md` 与
+      `Makefile`，**循序递进**（后章复用前章封装）。*（骨架就绪：01/02/03）*
+- [x] 每节配一张 **SVG 原理图**（沿用 `CLAUDE.md` 既有约定，单独文件 + 链接导入）。
 - [ ] 每个示例提供**可观测产物**：延迟/带宽数字、`ibv_*` 计数器、perftest 对比。
-- [ ] 代码风格沿用现有 `die_rdma` / `check_zero` / `wait_*_comp` 模式，C11。
+      *（02 已输出 RTT/单向延迟；计数器/perftest 待阶段三/八）*
+- [x] 代码风格沿用现有 `die_rdma` / `check_zero` / `wait_*_comp` 模式，C11。
 - [ ] 每章末尾给出「**原理 → API → 代码 → 性能 → 陷阱**」五段式小结。
-- [ ] 抽取公共脚手架到 `common/`（连接建立、MR 池、CQ 轮询、计时工具）。
+- [x] 抽取公共脚手架到 `common/`（错误处理、CQ 轮询、计时、QP 默认能力）。
+      *（`common/rdma_common.h` + `common/rules.mk`；MR 池待阶段六）*
 
 ---
 
@@ -39,9 +41,9 @@
 
 > 目标：把当前 `src/server.c` / `src/client.c` 提炼为教学基线。
 
-- [ ] 2.1 重构现有 demo 为 `examples/01-write-demo/`，作为基线参照。
-- [ ] 2.2 `02-send-recv/`：纯双边乒乓，讲 RQ 预投递、credit、流控直觉。
-- [ ] 2.3 `03-read/`：RDMA READ 与 WRITE 的对称性、延迟差异实测。
+- [x] 2.1 重构现有 demo 为 `examples/01-write-demo/`，作为基线参照。
+- [x] 2.2 `02-send-recv/`：纯双边乒乓，讲 RQ 预投递、credit、流控直觉。
+- [x] 2.3 `03-read/`：RDMA READ 与 WRITE 的对称性、延迟差异实测。
 - [ ] 2.4 `04-immediate/`：`WRITE_WITH_IMM` / `SEND_WITH_IMM`，单边也能通知对端。
 - [ ] 2.5 `05-atomic/`：`FETCH_ADD` / `CMP_SWAP`，分布式锁/计数器原理与对齐要求。
 
@@ -117,10 +119,10 @@
 
 ## 文档与仓库改造任务
 
-- [ ] R.1 改写 `README.md` 顶部定位：由「初学者最小示例」→「进阶系统教程」。
-- [ ] R.2 `CLAUDE.md` 增补「教程导航」与各 `examples/` 索引，保持每节一张 SVG。
-- [ ] R.3 新建 `examples/` 目录结构与共享 `common/` 脚手架。
-- [ ] R.4 顶层 `Makefile` 支持递归构建所有 `examples/`。
+- [x] R.1 改写 `README.md` 顶部定位：由「初学者最小示例」→「进阶系统教程」。
+- [x] R.2 `CLAUDE.md` 增补「教程导航」与各 `examples/` 索引，保持每节一张 SVG。
+- [x] R.3 新建 `examples/` 目录结构与共享 `common/` 脚手架。
+- [x] R.4 顶层 `Makefile` 支持递归构建所有 `examples/`。
 - [ ] R.5 增加 `docs/` 放术语表、参考文献（IB Spec、RoCEv2、各 vendor 手册）。
 - [ ] R.6 CI（可选）：在 Soft-RoCE 环境冒烟测试每个示例可建链。
 

@@ -27,6 +27,11 @@
 9. [构建、运行与调试](#9-构建运行与调试)
 10. [给 Claude 的工作约定](#10-给-claude-的工作约定)
 
+> **配套示例导航**（持续扩充，路线图见 `TODO.md`）：
+> - [`examples/01-write-demo`](examples/01-write-demo/) — 控制面 + RDMA WRITE（本文第 5/6/8 节）
+> - [`examples/02-send-recv`](examples/02-send-recv/) — SEND/RECV 双边乒乓 + 延迟基准（第 5/7 节）
+> - [`examples/03-read`](examples/03-read/) — RDMA READ 单边读（第 6 节）
+
 ---
 
 ## 1. RDMA 是什么：内核旁路与零拷贝

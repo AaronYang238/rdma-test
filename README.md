@@ -64,26 +64,18 @@ dnf install -y gcc make pkgconf-pkg-config rdma-core-devel libibverbs-devel libr
 ## 4. 构建
 
 ```bash
-make
+make            # 顶层递归构建 examples/ 下所有示例
+make list       # 列出可构建示例
 ```
 
-生成：
+每个示例生成到各自的 `examples/<名字>/bin/`。
 
-- `bin/rdma_server`
-- `bin/rdma_client`
-
-## 5. 本机回环演示
-
-先开服务端：
+## 5. 本机回环演示（以示例 01 为例）
 
 ```bash
-./bin/rdma_server <RDMA网卡IP> 7471
-```
-
-再开客户端：
-
-```bash
-./bin/rdma_client <RDMA网卡IP> 7471
+cd examples/01-write-demo && make
+./bin/server <RDMA网卡IP> 7471   # 终端1
+./bin/client <RDMA网卡IP> 7471   # 终端2
 ```
 
 预期看到：
@@ -91,19 +83,16 @@ make
 - 服务端打印收到客户端 MR 信息，并显示 write + ack 完成。
 - 客户端打印本地缓冲区被服务端覆盖后的字符串。
 
-示例（本机 Soft-RoCE 环境）：
-
-```bash
-./bin/rdma_server 192.168.38.135 7471
-./bin/rdma_client 192.168.38.135 7471
-```
+其余示例（双边乒乓延迟、RDMA Read 等）见 [`examples/`](./examples/) 索引。
 
 ## 6. 代码结构
 
-- `src/common.h`：共享结构、错误处理。
-- `src/server.c`：服务端流程。
-- `src/client.c`：客户端流程。
-- `Makefile`：构建脚本。
+- `common/rdma_common.h`：共享结构、错误处理、CQ 轮询与计时脚手架。
+- `common/rules.mk`：示例共用的编译规则。
+- `examples/NN-*/`：由浅入深的独立示例（server.c / client.c / README.md / Makefile）。
+- `docs/img/`：各章节与示例的 SVG 图（单独文件，正文以链接导入）。
+- `src/`：最初的单体 demo，已收编为 `examples/01-write-demo/`，保留作历史参照。
+- `TODO.md`：进阶教程编写路线图。`CLAUDE.md`：原理教程正文。
 
 ## 7. 注意事项
 
