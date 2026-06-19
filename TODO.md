@@ -54,16 +54,18 @@
 
 > 目标：把延迟做到 μs 级、带宽打满线速，并解释每一项优化的机理。
 
-- [ ] 3.1 完成机制优化：**选择性 signaling**（每 N 个 signaled 一次）、
-      `unsignaled` SQ 回收。SVG：CQE 生成节流图。
-- [ ] 3.2 **轮询 vs 事件**：busy-poll 低延迟 vs `ibv_get_cq_event` 省 CPU；
-      混合策略（先 poll 后 arm）。SVG：两种模式状态机。
-- [ ] 3.3 **Inline data** 与小消息优化；`max_inline_data` 调优。
-- [ ] 3.4 **批处理 / doorbell batching**、链式 WR（`wr.next`）、SGE 聚合。
-- [ ] 3.5 **多 QP / 多核扩展**：QP 与 CPU 核绑定、CQ 共享 vs 分离、NUMA 亲和。
-      SVG：多核—多 QP—网卡队列映射。
-- [ ] 3.6 基准方法学：用 `perftest`(`ib_write_bw`/`ib_read_lat`) 校准自研结果，
-      给出 P50/P99/带宽表格模板。
+- [x] 3.1 完成机制优化：**选择性 signaling**（每 N 个 signaled 一次）、
+      `unsignaled` SQ 回收。SVG：`docs/img/s3-1-selective-signaling.svg`。
+- [x] 3.2 **轮询 vs 事件**：busy-poll 低延迟 vs `ibv_get_cq_event` 省 CPU；
+      混合策略（先 poll 后 arm）。SVG：`docs/img/s3-2-poll-vs-event.svg`。
+- [x] 3.3 **Inline data** 与小消息优化；`max_inline_data` 调优。
+      SVG：`docs/img/s3-3-inline.svg`。
+- [x] 3.4 **批处理 / doorbell batching**、链式 WR（`wr.next`）、SGE 聚合。
+      SVG：`docs/img/s3-4-batching.svg`。
+- [x] 3.5 **多 QP / 多核扩展**：QP 与 CPU 核绑定、CQ 共享 vs 分离、NUMA 亲和。
+      SVG：`docs/img/s3-5-multi-qp.svg`。
+- [x] 3.6 基准方法学：perftest 校准、P50/P99/带宽表格模板。
+      SVG：`docs/img/s3-6-benchmark.svg`。文档：`docs/stage3-performance.md`。
 
 ---
 

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="290" font-family="sans-serif" font-size="12">
+  <rect width="720" height="290" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold">基准方法学：perftest 校准 + 自研对比模板</text>
+
+  <!-- pipeline -->
+  <rect x="30"  y="50" width="140" height="44" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="100" y="70" text-anchor="middle" font-size="11">ib_write_bw</text>
+  <text x="100" y="86" text-anchor="middle" font-size="10">带宽基线</text>
+  <line x1="170" y1="72" x2="210" y2="72" stroke="#555" marker-end="url(#a)"/>
+
+  <rect x="210" y="50" width="140" height="44" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="280" y="70" text-anchor="middle" font-size="11">ib_write_lat</text>
+  <text x="280" y="86" text-anchor="middle" font-size="10">延迟基线</text>
+  <line x1="350" y1="72" x2="390" y2="72" stroke="#555" marker-end="url(#a)"/>
+
+  <rect x="390" y="50" width="140" height="44" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="460" y="70" text-anchor="middle" font-size="11">自研程序</text>
+  <text x="460" y="86" text-anchor="middle" font-size="10">与基线对比</text>
+  <line x1="530" y1="72" x2="570" y2="72" stroke="#555" marker-end="url(#a)"/>
+
+  <rect x="570" y="50" width="120" height="44" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="630" y="70" text-anchor="middle" font-size="11">差距分析</text>
+  <text x="630" y="86" text-anchor="middle" font-size="10">定位瓶颈</text>
+
+  <!-- table -->
+  <rect x="30" y="118" width="660" height="140" fill="#fbfbfd" stroke="#90a4ae"/>
+  <text x="360" y="136" text-anchor="middle" font-weight="bold">典型指标记录模板</text>
+  <line x1="30" y1="144" x2="690" y2="144" stroke="#90a4ae"/>
+  <text x="90"  y="160" text-anchor="middle" font-size="11" fill="#555">消息大小</text>
+  <text x="220" y="160" text-anchor="middle" font-size="11" fill="#555">带宽 (Gb/s)</text>
+  <text x="360" y="160" text-anchor="middle" font-size="11" fill="#555">P50 延迟 (μs)</text>
+  <text x="490" y="160" text-anchor="middle" font-size="11" fill="#555">P99 延迟 (μs)</text>
+  <text x="620" y="160" text-anchor="middle" font-size="11" fill="#555">QPS</text>
+  <line x1="30" y1="166" x2="690" y2="166" stroke="#e0e0e0"/>
+  <text x="90"  y="184" text-anchor="middle" font-size="11">64 B</text>
+  <text x="220" y="184" text-anchor="middle" font-size="11">___</text>
+  <text x="360" y="184" text-anchor="middle" font-size="11">___</text>
+  <text x="490" y="184" text-anchor="middle" font-size="11">___</text>
+  <text x="620" y="184" text-anchor="middle" font-size="11">___</text>
+  <text x="90"  y="204" text-anchor="middle" font-size="11">4 KB</text>
+  <text x="220" y="204" text-anchor="middle" font-size="11">___</text>
+  <text x="360" y="204" text-anchor="middle" font-size="11">___</text>
+  <text x="490" y="204" text-anchor="middle" font-size="11">___</text>
+  <text x="620" y="204" text-anchor="middle" font-size="11">___</text>
+  <text x="90"  y="224" text-anchor="middle" font-size="11">1 MB</text>
+  <text x="220" y="224" text-anchor="middle" font-size="11">___</text>
+  <text x="360" y="224" text-anchor="middle" font-size="11">___</text>
+  <text x="490" y="224" text-anchor="middle" font-size="11">___</text>
+  <text x="620" y="224" text-anchor="middle" font-size="11">___</text>
+  <text x="90"  y="244" text-anchor="middle" font-size="11">perftest</text>
+  <text x="220" y="244" text-anchor="middle" font-size="11">___</text>
+  <text x="360" y="244" text-anchor="middle" font-size="11">___</text>
+  <text x="490" y="244" text-anchor="middle" font-size="11">___</text>
+  <text x="620" y="244" text-anchor="middle" font-size="11">___</text>
+
+  <text x="360" y="276" text-anchor="middle" fill="#555" font-size="11">P99 > 3×P50 通常说明存在 CQ 轮询抖动、NUMA 问题或重传</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

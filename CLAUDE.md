@@ -36,6 +36,7 @@
 >
 > **进阶理论篇**（对应 `TODO.md` 各阶段，落地后在此回填导航）：
 > - [`docs/stage1-hardware-model.md`](docs/stage1-hardware-model.md) — 阶段一：硬件模型（MMIO/DMA/WC/分层/RC-UC-UD/MPT-MTT/fence）
+> - [`docs/stage3-performance.md`](docs/stage3-performance.md) — 阶段三：性能工程（选择性 signaling/poll vs event/inline/批处理/多 QP/基准）
 
 ---
 
