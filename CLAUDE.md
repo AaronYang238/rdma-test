@@ -31,6 +31,8 @@
 > - [`examples/01-write-demo`](examples/01-write-demo/) — 控制面 + RDMA WRITE（本文第 5/6/8 节）
 > - [`examples/02-send-recv`](examples/02-send-recv/) — SEND/RECV 双边乒乓 + 延迟基准（第 5/7 节）
 > - [`examples/03-read`](examples/03-read/) — RDMA READ 单边读（第 6 节）
+> - [`examples/04-immediate`](examples/04-immediate/) — WRITE_WITH_IMM 写+通知合一（第 6/7 节）
+> - [`examples/05-atomic`](examples/05-atomic/) — FETCH_ADD / CMP_SWAP 原子操作（第 6 节扩展）
 
 ---
 

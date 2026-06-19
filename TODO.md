@@ -44,8 +44,8 @@
 - [x] 2.1 重构现有 demo 为 `examples/01-write-demo/`，作为基线参照。
 - [x] 2.2 `02-send-recv/`：纯双边乒乓，讲 RQ 预投递、credit、流控直觉。
 - [x] 2.3 `03-read/`：RDMA READ 与 WRITE 的对称性、延迟差异实测。
-- [ ] 2.4 `04-immediate/`：`WRITE_WITH_IMM` / `SEND_WITH_IMM`，单边也能通知对端。
-- [ ] 2.5 `05-atomic/`：`FETCH_ADD` / `CMP_SWAP`，分布式锁/计数器原理与对齐要求。
+- [x] 2.4 `04-immediate/`：`WRITE_WITH_IMM`，单边写顺带通知对端（省 ACK 往返）。
+- [x] 2.5 `05-atomic/`：`FETCH_ADD` / `CMP_SWAP`，分布式锁/计数器原理与对齐要求。
 
 ---
 
