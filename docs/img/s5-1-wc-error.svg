@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+
+  <rect width="720" height="300" fill="#fbfbfd"/>
+
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="13">
+    WC 错误处理：IBV_WC_* 错误码 → QP ERROR → RESET 恢复
+  </text>
+
+  <!-- Error code boxes on the left -->
+  <rect x="20" y="42" width="220" height="28" fill="#c62828" rx="4"/>
+  <text x="130" y="61" text-anchor="middle" fill="white">IBV_WC_RNR_RETRY_EXC_ERR</text>
+
+  <rect x="20" y="78" width="220" height="28" fill="#c62828" rx="4"/>
+  <text x="130" y="97" text-anchor="middle" fill="white">IBV_WC_RETRY_EXC_ERR</text>
+
+  <rect x="20" y="114" width="220" height="28" fill="#c62828" rx="4"/>
+  <text x="130" y="133" text-anchor="middle" fill="white">IBV_WC_LOC_LEN_ERR</text>
+
+  <rect x="20" y="150" width="220" height="28" fill="#c62828" rx="4"/>
+  <text x="130" y="169" text-anchor="middle" fill="white">IBV_WC_REM_ACCESS_ERR</text>
+
+  <rect x="20" y="186" width="220" height="28" fill="#c62828" rx="4"/>
+  <text x="130" y="205" text-anchor="middle" fill="white">IBV_WC_WR_FLUSH_ERR</text>
+
+  <!-- Arrows from error codes to QP ERROR box -->
+  <line x1="240" y1="56" x2="300" y2="130" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="92" x2="300" y2="130" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="128" x2="300" y2="140" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="164" x2="300" y2="152" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="200" x2="300" y2="160" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- QP ERROR box in center -->
+  <rect x="300" y="110" width="160" height="50" fill="#c62828" rx="6"/>
+  <text x="380" y="131" text-anchor="middle" fill="white" font-weight="bold" font-size="13">QP ERROR 状态</text>
+  <text x="380" y="150" text-anchor="middle" fill="white" font-size="11">wc.status != SUCCESS</text>
+
+  <!-- Arrow from QP ERROR to RESET box -->
+  <line x1="460" y1="135" x2="510" y2="135" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ibv_modify_qp(RESET) box -->
+  <rect x="510" y="110" width="190" height="50" fill="#5e35b1" rx="6"/>
+  <text x="605" y="131" text-anchor="middle" fill="white" font-weight="bold" font-size="12">ibv_modify_qp(RESET)</text>
+  <text x="605" y="150" text-anchor="middle" fill="white" font-size="11">清除 QP 状态</text>
+
+  <!-- Arrow from RESET down to re-init box -->
+  <line x1="605" y1="160" x2="605" y2="205" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Re-init box -->
+  <rect x="510" y="205" width="190" height="55" fill="#1565c0" rx="6"/>
+  <text x="605" y="225" text-anchor="middle" fill="white" font-weight="bold" font-size="12">重新初始化 QP</text>
+  <text x="605" y="243" text-anchor="middle" fill="white" font-size="11">INIT → RTR → RTS</text>
+  <text x="605" y="256" text-anchor="middle" fill="white" font-size="10">交换 QPN/GID/PSN</text>
+
+  <!-- Curved arrow back (recovery complete) -->
+  <path d="M 510 232 Q 420 270 380 250 Q 340 230 350 175" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="400" y="275" text-anchor="middle" fill="#2e7d32" font-size="11">恢复完成，可重新使用</text>
+</svg>
