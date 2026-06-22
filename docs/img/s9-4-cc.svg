@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="14">现代拥塞控制演进：信号粒度越来越精细</text>
+
+  <!-- granularity axis -->
+  <line x1="40" y1="250" x2="690" y2="250" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="40" y="272" font-size="10" fill="#555">粗（二元信号）</text>
+  <text x="690" y="272" text-anchor="end" font-size="10" fill="#555">细（精确速率 / 可编程）</text>
+
+  <!-- DCQCN -->
+  <rect x="40" y="60" width="115" height="100" rx="6" fill="#c62828"/>
+  <text x="97" y="80" text-anchor="middle" fill="white" font-weight="bold">DCQCN</text>
+  <text x="97" y="100" text-anchor="middle" fill="white" font-size="10">ECN 二元标记</text>
+  <text x="97" y="116" text-anchor="middle" fill="white" font-size="10">+ CNP 反馈</text>
+  <text x="97" y="134" text-anchor="middle" fill="white" font-size="9">收敛慢</text>
+  <text x="97" y="148" text-anchor="middle" fill="white" font-size="9">参数难调</text>
+  <line x1="97" y1="160" x2="97" y2="248" stroke="#555" stroke-dasharray="3 3"/>
+
+  <!-- TIMELY -->
+  <rect x="170" y="60" width="115" height="100" rx="6" fill="#ef6c00"/>
+  <text x="227" y="80" text-anchor="middle" fill="white" font-weight="bold">TIMELY</text>
+  <text x="227" y="100" text-anchor="middle" fill="white" font-size="10">RTT 梯度</text>
+  <text x="227" y="116" text-anchor="middle" fill="white" font-size="10">网卡硬件时戳</text>
+  <text x="227" y="134" text-anchor="middle" fill="white" font-size="9">按时延梯度</text>
+  <text x="227" y="148" text-anchor="middle" fill="white" font-size="9">调速率</text>
+  <line x1="227" y1="160" x2="227" y2="248" stroke="#555" stroke-dasharray="3 3"/>
+
+  <!-- HPCC -->
+  <rect x="300" y="60" width="115" height="100" rx="6" fill="#2e7d32"/>
+  <text x="357" y="80" text-anchor="middle" fill="white" font-weight="bold">HPCC</text>
+  <text x="357" y="100" text-anchor="middle" fill="white" font-size="10">在网遥测 INT</text>
+  <text x="357" y="116" text-anchor="middle" fill="white" font-size="10">交换机戳队列/速率</text>
+  <text x="357" y="134" text-anchor="middle" fill="white" font-size="9">精确算速率</text>
+  <text x="357" y="148" text-anchor="middle" fill="white" font-size="9">收敛快·近零排队</text>
+  <line x1="357" y1="160" x2="357" y2="248" stroke="#555" stroke-dasharray="3 3"/>
+
+  <!-- Swift -->
+  <rect x="430" y="60" width="115" height="100" rx="6" fill="#1565c0"/>
+  <text x="487" y="80" text-anchor="middle" fill="white" font-weight="bold">Swift</text>
+  <text x="487" y="100" text-anchor="middle" fill="white" font-size="10">时延为信号</text>
+  <text x="487" y="116" text-anchor="middle" fill="white" font-size="10">目标时延拆分</text>
+  <text x="487" y="134" text-anchor="middle" fill="white" font-size="9">fabric +</text>
+  <text x="487" y="148" text-anchor="middle" fill="white" font-size="9">endpoint(NIC)</text>
+  <line x1="487" y1="160" x2="487" y2="248" stroke="#555" stroke-dasharray="3 3"/>
+
+  <!-- PCC -->
+  <rect x="560" y="60" width="130" height="100" rx="6" fill="#5e35b1"/>
+  <text x="625" y="80" text-anchor="middle" fill="white" font-weight="bold">PCC（可编程）</text>
+  <text x="625" y="100" text-anchor="middle" fill="white" font-size="10">用户自定义算法</text>
+  <text x="625" y="116" text-anchor="middle" fill="white" font-size="10">受限 C 跑在网卡</text>
+  <text x="625" y="134" text-anchor="middle" fill="white" font-size="9">ConnectX/</text>
+  <text x="625" y="148" text-anchor="middle" fill="white" font-size="9">BlueField 上</text>
+  <line x1="625" y1="160" x2="625" y2="248" stroke="#555" stroke-dasharray="3 3"/>
+
+  <!-- arrows along timeline -->
+  <text x="360" y="200" text-anchor="middle" font-size="10" fill="#555">DCQCN → TIMELY → HPCC → Swift → PCC：从二元 ECN 到在网遥测再到可编程</text>
+</svg>

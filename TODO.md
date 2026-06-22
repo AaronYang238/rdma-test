@@ -139,6 +139,21 @@
 
 ---
 
+## 阶段九 · 专家深水区（厂商快路径与前沿）
+
+> 目标：跨过标准 verbs 抽象，触及 mlx5 硬件快路径、DPU 卸载与现代拥塞控制。
+
+- [x] 9.1 直接 Verbs：mlx5dv / DEVX 绕过 libibverbs，手写 WQE。
+      SVG：`docs/img/s9-1-directverbs.svg`。
+- [x] 9.2 Doorbell 深入：DB record / BlueFlame(WC) / 门铃批处理 / WQE 布局。
+      SVG：`docs/img/s9-2-doorbell.svg`。
+- [x] 9.3 SmartNIC / DPU 卸载：BlueField / DOCA / SF-VF / host-offload 架构。
+      SVG：`docs/img/s9-3-dpu.svg`。
+- [x] 9.4 现代拥塞控制：HPCC / TIMELY / Swift / 可编程 CC，超越 DCQCN。
+      SVG：`docs/img/s9-4-cc.svg`。文档：`docs/stage9-advanced.md`。
+
+---
+
 ## 文档与仓库改造任务
 
 - [x] R.1 改写 `README.md` 顶部定位：由「初学者最小示例」→「进阶系统教程」。
