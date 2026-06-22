@@ -255,6 +255,18 @@ rdma res show qp                     # 列出系统所有 QP
 
 ---
 
+## 小结：原理 → API → 代码 → 性能 → 陷阱
+
+| 维度 | 要点 |
+|------|------|
+| **原理** | RC 内置重传非万能；拥塞控制靠 PFC（兜底防丢包）+ ECN/DCQCN（主动降速）分层防御；RDMA 资源有严格依赖层次与销毁顺序 |
+| **API** | `ibv_wc_status_str()` 解析错误；`ibv_modify_qp(RESET)` 后重建；`ibv_fork_init()`/`RDMAV_FORK_SAFE=1`；`/sys/.../hw_counters/` 观测 |
+| **代码** | 每次 poll_cq 必检 `wc.status`；首个真实错误后批量忽略 `WR_FLUSH_ERR`；销毁顺序 QP→SRQ→MR→CQ→PD→context 写成辅助函数 |
+| **性能** | PFC pause 引入尾延迟毛刺；DCQCN 降速后恢复慢，需按 `np_cnp_sent` 频率调 ECN 阈值；retry/timeout 调参平衡快速失败与抗抖动 |
+| **陷阱** | `out_of_buffer` ≠ PFC 计数；fork 前必须 `ibv_fork_init`；已注册内存禁用 `madvise(MADV_DONTNEED)`；`timeout=0`+`retry_cnt=0` 会永久挂起 |
+
+---
+
 ## 本阶段术语速查
 
 > 完整术语表见 [`docs/glossary.md`](glossary.md)。
