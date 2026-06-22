@@ -2,6 +2,14 @@
 #define RDMA_TUTORIAL_COMMON_H
 
 /*
+ * 暴露 POSIX 接口（clock_gettime / CLOCK_MONOTONIC 等）。
+ * 严格 -std=c11 下默认不声明 POSIX 符号，必须在任何系统头之前定义此宏。
+ */
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200112L
+#endif
+
+/*
  * 教程公共脚手架（被各 examples/ 复用）。
  *
  * 设计目标：把建链、MR 注册、CQ 轮询、计时这类**重复样板**收敛到一处，

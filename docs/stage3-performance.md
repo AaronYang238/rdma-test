@@ -19,6 +19,9 @@
 
 ## 1. 选择性 signaling 与 SQ 回收
 
+> 🛠 可运行示例：[`examples/06-selective-signaling/`](../examples/06-selective-signaling/)
+> ——同样 N 次 WRITE，对比"全 signaled"与"每 K 个 signaled"的吞吐加速比。
+
 ### 原理
 
 每个 `IBV_SEND_SIGNALED` 的 WR 完成后，网卡都要通过 PCIe DMA 写一条 CQE。

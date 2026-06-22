@@ -39,6 +39,9 @@
 > - [`examples/03-read`](examples/03-read/) — RDMA READ 单边读（第 6 节）
 > - [`examples/04-immediate`](examples/04-immediate/) — WRITE_WITH_IMM 写+通知合一（第 6/7 节）
 > - [`examples/05-atomic`](examples/05-atomic/) — FETCH_ADD / CMP_SWAP 原子操作（第 6 节扩展）
+> - [`examples/06-selective-signaling`](examples/06-selective-signaling/) — 选择性 signaling 吞吐对比（阶段三 3.1）
+> - [`examples/07-srq`](examples/07-srq/) — SRQ 多 QP 共享接收队列（阶段四 4.1）
+> - [`examples/08-rpc`](examples/08-rpc/) — 极简请求/响应 RPC + 延迟基准（阶段七 7.1）
 >
 > **进阶理论篇**（对应 `TODO.md` 各阶段，落地后在此回填导航）：
 > - [`docs/stage1-hardware-model.md`](docs/stage1-hardware-model.md) — 阶段一：硬件模型（MMIO/DMA/WC/分层/RC-UC-UD/MPT-MTT/fence）

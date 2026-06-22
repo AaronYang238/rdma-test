@@ -6,6 +6,9 @@
 
 ## 7.1 极简 RPC over RDMA
 
+> 🛠 可运行示例：[`examples/08-rpc/`](../examples/08-rpc/)
+> ——SEND/RECV 请求/响应 RPC + 平均延迟基准（本节进一步讲单边 WRITE+IMM 环形缓冲优化）。
+
 传统 TCP RPC 每次往返需要两次系统调用 + 内核协议栈，RTT 约 10–50 µs。
 基于 RDMA 的 RPC 把控制面（通知）与数据面（载荷）分离：
 

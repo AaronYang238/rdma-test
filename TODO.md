@@ -9,12 +9,12 @@
 ## 0. 编写约定（贯穿全程）
 
 - [x] 每章一个独立、可编译运行的 `examples/<NN>-<topic>/`，配 `README.md` 与
-      `Makefile`，**循序递进**（后章复用前章封装）。*（骨架就绪：01/02/03）*
+      `Makefile`，**循序递进**（后章复用前章封装）。*（01–08 全部可编译通过）*
 - [x] 每节配一张 **SVG 原理图**（沿用 `CLAUDE.md` 既有约定，单独文件 + 链接导入）。
-- [ ] 每个示例提供**可观测产物**：延迟/带宽数字、`ibv_*` 计数器、perftest 对比。
-      *（02 已输出 RTT/单向延迟；计数器/perftest 待阶段三/八）*
+- [x] 每个示例提供**可观测产物**：延迟/带宽数字、`ibv_*` 计数器、perftest 对比。
+      *（02 RTT/单向延迟；06 signaling 吞吐加速比；08 RPC 平均延迟；计数器/perftest 见阶段八）*
 - [x] 代码风格沿用现有 `die_rdma` / `check_zero` / `wait_*_comp` 模式，C11。
-- [ ] 每章末尾给出「**原理 → API → 代码 → 性能 → 陷阱**」五段式小结。
+- [x] 每章末尾给出「**原理 → API → 代码 → 性能 → 陷阱**」五段式小结。
 - [x] 抽取公共脚手架到 `common/`（错误处理、CQ 轮询、计时、QP 默认能力）。
       *（`common/rdma_common.h` + `common/rules.mk`；MR 池待阶段六）*
 
@@ -56,6 +56,7 @@
 
 - [x] 3.1 完成机制优化：**选择性 signaling**（每 N 个 signaled 一次）、
       `unsignaled` SQ 回收。SVG：`docs/img/s3-1-selective-signaling.svg`。
+      示例：`examples/06-selective-signaling/`（A/B 吞吐对比）。
 - [x] 3.2 **轮询 vs 事件**：busy-poll 低延迟 vs `ibv_get_cq_event` 省 CPU；
       混合策略（先 poll 后 arm）。SVG：`docs/img/s3-2-poll-vs-event.svg`。
 - [x] 3.3 **Inline data** 与小消息优化；`max_inline_data` 调优。
@@ -74,7 +75,7 @@
 > 目标：从两进程 demo 走向支撑万级连接的服务端结构。
 
 - [x] 4.1 **SRQ（Shared Receive Queue）**：降低海量连接的 RQ 内存。
-      SVG：`docs/img/s4-1-srq.svg`。
+      SVG：`docs/img/s4-1-srq.svg`。示例：`examples/07-srq/`（两连接共享 SRQ）。
 - [x] 4.2 **共享 CQ + 单线程事件循环**：一个 CQ 服务多 QP。
       SVG：`docs/img/s4-2-shared-cq.svg`。
 - [x] 4.3 连接管理规模化：`rdma_cm` 事件通道 vs 手工 QP 状态机
@@ -116,7 +117,7 @@
 ## 阶段七 · 与上层系统集成（实战落地）
 
 - [x] 7.1 在 RDMA 上手写一个**极简 RPC**：请求/响应缓冲环 + 单边写 + IMM 通知。
-      SVG：`docs/img/s7-1-rpc.svg`。
+      SVG：`docs/img/s7-1-rpc.svg`。示例：`examples/08-rpc/`（SEND/RECV RPC + 延迟基准）。
 - [x] 7.2 **GPUDirect RDMA** 概念与 `IBV_ACCESS_*` + peer-memory（仅原理 + 伪代码）。
       SVG：`docs/img/s7-2-gpudirect.svg`。
 - [x] 7.3 生态总览：NVMe-oF、NCCL/集合通信、SPDK、UCX —— 各自如何用上述原语。

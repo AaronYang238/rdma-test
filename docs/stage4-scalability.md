@@ -6,6 +6,9 @@
 
 ## 4.1 SRQ（Shared Receive Queue）
 
+> 🛠 可运行示例：[`examples/07-srq/`](../examples/07-srq/)
+> ——两个客户端连接共享一个 SRQ，用 `wc.qp_num` 区分来源。
+
 在高连接数场景，每个 QP 独立维护一个接收队列（RQ），要求预先投递足够多的 WR
 防止 RNR（Receiver Not Ready）错误。1000 个 QP × N 个预投递 WR，内存消耗线性
 增长，且绝大多数 WR 同时处于"空等"状态。
