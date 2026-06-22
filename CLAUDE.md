@@ -42,6 +42,7 @@
 > - [`docs/stage6-memory.md`](docs/stage6-memory.md) — 阶段六：高级内存管理（注册缓存/ODP/Memory Windows/HugePage）
 > - [`docs/stage7-integration.md`](docs/stage7-integration.md) — 阶段七：与上层系统集成（极简 RPC/GPUDirect/生态总览/Soft-RoCE）
 > - [`docs/stage8-debugging.md`](docs/stage8-debugging.md) — 阶段八：调试与可观测性（ibv_devinfo/计数器/抓包/故障树）
+> - [`docs/glossary.md`](docs/glossary.md) — 术语表（A–X）与参考文献（IB Spec/RoCEv2/perftest/论文）
 
 ---
 
