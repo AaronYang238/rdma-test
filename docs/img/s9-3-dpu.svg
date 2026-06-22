@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrowg" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="14">SmartNIC / DPU 卸载：BlueField · DOCA · host-offload</text>
+
+  <!-- HOST -->
+  <rect x="30" y="50" width="250" height="210" rx="8" fill="#e3f2fd" stroke="#1565c0"/>
+  <text x="155" y="72" text-anchor="middle" font-weight="bold" fill="#1565c0">Host（x86）</text>
+
+  <rect x="55" y="88" width="200" height="40" rx="6" fill="#1565c0"/>
+  <text x="155" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="11">应用 / 虚拟机</text>
+  <text x="155" y="120" text-anchor="middle" fill="white" font-size="10">只看见虚拟设备</text>
+
+  <rect x="55" y="138" width="200" height="36" rx="6" fill="#5e35b1"/>
+  <text x="155" y="155" text-anchor="middle" fill="white" font-size="11">virtio-net / virtio-blk</text>
+  <text x="155" y="168" text-anchor="middle" fill="white" font-size="10">NVMe / RDMA VF（SR-IOV）</text>
+
+  <text x="155" y="200" text-anchor="middle" font-size="11" fill="#333">CPU 不跑控制面</text>
+  <text x="155" y="216" text-anchor="middle" font-size="11" fill="#2e7d32" font-weight="bold">主机 CPU 被解放</text>
+  <text x="155" y="240" text-anchor="middle" font-size="10" fill="#555">零信任隔离：租户看不到物理设备</text>
+
+  <!-- PCIe -->
+  <line x1="280" y1="155" x2="440" y2="155" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="440" y1="170" x2="280" y2="170" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="360" y="148" text-anchor="middle" font-size="10" fill="#555" font-weight="bold">PCIe</text>
+  <text x="360" y="186" text-anchor="middle" font-size="10" fill="#555">设备模拟 / SF</text>
+
+  <!-- DPU -->
+  <rect x="440" y="50" width="250" height="210" rx="8" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="565" y="72" text-anchor="middle" font-weight="bold" fill="#ef6c00">DPU（BlueField）</text>
+
+  <rect x="460" y="84" width="100" height="36" rx="6" fill="#2e7d32"/>
+  <text x="510" y="101" text-anchor="middle" fill="white" font-size="11" font-weight="bold">ARM 核</text>
+  <text x="510" y="114" text-anchor="middle" fill="white" font-size="9">跑控制面 + DOCA</text>
+
+  <rect x="568" y="84" width="110" height="36" rx="6" fill="#5e35b1"/>
+  <text x="623" y="101" text-anchor="middle" fill="white" font-size="11" font-weight="bold">加速器</text>
+  <text x="623" y="114" text-anchor="middle" fill="white" font-size="9">crypto/regex/SHA/GGA</text>
+
+  <rect x="460" y="128" width="218" height="30" rx="6" fill="#1565c0"/>
+  <text x="569" y="148" text-anchor="middle" fill="white" font-size="11" font-weight="bold">RNIC（线速数据面 · RDMA）</text>
+
+  <!-- offload boxes -->
+  <rect x="460" y="168" width="105" height="34" rx="5" fill="#c62828"/>
+  <text x="512" y="186" text-anchor="middle" fill="white" font-size="10">NVMe-oF</text>
+  <text x="512" y="198" text-anchor="middle" fill="white" font-size="9">target 卸载</text>
+
+  <rect x="573" y="168" width="105" height="34" rx="5" fill="#c62828"/>
+  <text x="625" y="186" text-anchor="middle" fill="white" font-size="10">inline 加解密</text>
+  <text x="625" y="198" text-anchor="middle" fill="white" font-size="9">/ 压缩</text>
+
+  <text x="565" y="224" text-anchor="middle" font-size="11" fill="#333">控制面在 DPU ARM，数据面走 RDMA</text>
+  <text x="565" y="240" text-anchor="middle" font-size="10" fill="#555">跨 DPU RDMA：存储/网络全卸载到网卡侧</text>
+
+  <text x="360" y="285" text-anchor="middle" font-size="11" fill="#555">DPU = NIC + ARM 核 + 加速器：把整条控制面/存储 target 从主机搬到网卡</text>
+</svg>

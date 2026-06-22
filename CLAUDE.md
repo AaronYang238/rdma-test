@@ -11,6 +11,12 @@
 > 工程师的 RDMA 系统教程」**。本文件第 1–8 节是入门主线；进阶篇（硬件模型、
 > 性能工程、可扩展架构、可靠性、高级内存管理、系统集成、调试）的编写路线图与
 > 施工清单见 **[TODO.md](./TODO.md)**，落地后会在此回填导航。
+>
+> 📖 **如何使用本教程**：前置知识只需 C + TCP socket + 基本 Linux。建议顺序：
+> 先按 [`README.md`](./README.md) §3.5 用 Soft-RoCE 搭好环境 → 读本文件第 1–8 节
+> 建立原理直觉 → 跑 [`examples/`](./examples/) 01–05 动手验证 → 再进入 `docs/`
+> 各阶段专题。本文第 2–8 节的代码以 `examples/01-write-demo/{server,client}.c`
+> 与 `common/rdma_common.h` 为准（`src/` 为同一程序的历史副本）。
 
 ---
 
@@ -33,6 +39,9 @@
 > - [`examples/03-read`](examples/03-read/) — RDMA READ 单边读（第 6 节）
 > - [`examples/04-immediate`](examples/04-immediate/) — WRITE_WITH_IMM 写+通知合一（第 6/7 节）
 > - [`examples/05-atomic`](examples/05-atomic/) — FETCH_ADD / CMP_SWAP 原子操作（第 6 节扩展）
+> - [`examples/06-selective-signaling`](examples/06-selective-signaling/) — 选择性 signaling 吞吐对比（阶段三 3.1）
+> - [`examples/07-srq`](examples/07-srq/) — SRQ 多 QP 共享接收队列（阶段四 4.1）
+> - [`examples/08-rpc`](examples/08-rpc/) — 极简请求/响应 RPC + 延迟基准（阶段七 7.1）
 >
 > **进阶理论篇**（对应 `TODO.md` 各阶段，落地后在此回填导航）：
 > - [`docs/stage1-hardware-model.md`](docs/stage1-hardware-model.md) — 阶段一：硬件模型（MMIO/DMA/WC/分层/RC-UC-UD/MPT-MTT/fence）
@@ -42,6 +51,7 @@
 > - [`docs/stage6-memory.md`](docs/stage6-memory.md) — 阶段六：高级内存管理（注册缓存/ODP/Memory Windows/HugePage）
 > - [`docs/stage7-integration.md`](docs/stage7-integration.md) — 阶段七：与上层系统集成（极简 RPC/GPUDirect/生态总览/Soft-RoCE）
 > - [`docs/stage8-debugging.md`](docs/stage8-debugging.md) — 阶段八：调试与可观测性（ibv_devinfo/计数器/抓包/故障树）
+> - [`docs/stage9-advanced.md`](docs/stage9-advanced.md) — 阶段九：专家深水区（mlx5dv/DEVX/BlueFlame/DPU-DOCA/HPCC-TIMELY-Swift）
 > - [`docs/glossary.md`](docs/glossary.md) — 术语表（A–X）与参考文献（IB Spec/RoCEv2/perftest/论文）
 
 ---

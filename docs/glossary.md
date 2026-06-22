@@ -232,6 +232,59 @@ Work Request 在硬件队列中的存储形式，由 NIC DMA 读取并执行。
 
 ---
 
+## 专家术语（阶段九）
+
+> 以下术语多为 NVIDIA/Mellanox 厂商专有或前沿研究，详见
+> [`docs/stage9-advanced.md`](stage9-advanced.md)。
+
+**mlx5dv（Direct Verbs）**
+mlx5 厂商扩展库，在标准 verbs 对象之上取出底层硬件资源指针（SQ buffer、
+doorbell record、BlueFlame 寄存器），由应用亲手构造 WQE，获取最低延迟。
+
+**DEVX（Devx）**
+用原始 PRM 命令直接创建/操作硬件对象（DC、steering、计数器），完全绕过 verbs
+对象模型。`mlx5dv_devx_obj_create` 是入口。
+
+**PRM（Programmer's Reference Manual）**
+mlx5 硬件的命令格式与结构体布局规范，DEVX 编程的依据；固件升级可能变更。
+
+**WQE 控制段（ctrl segment）**
+WQE 的 16 字节头部，含 opcode、QPN、ds（descriptor 段数）、signature、
+fm_ce_se（fence/完成事件标志）。
+
+**DB record（Doorbell Record）**
+host 内存中的门铃计数器，记录 SQ/RQ 的 producer index，让网卡知道队列推进到何处。
+
+**BlueFlame（BF）**
+write-combining（WC）内存映射的门铃寄存器。小 WQE 可内联写入 BF 寄存器，
+省去网卡回读 SQ buffer 的那次 PCIe read，是亚微秒延迟的来源。
+
+**DPU（Data Processing Unit）**
+= NIC + 通用 ARM 核 + 专用加速器（加密/压缩/正则/存储）。可把 RDMA 控制面、
+存储目标、网络功能从主机 CPU 卸载到网卡上。NVIDIA BlueField 是代表。
+
+**DOCA**
+NVIDIA DPU 的软件开发框架，含 DOCA Flow（硬件流表）、SF/VF 设备表示、
+DMA/Crypto/EC 等加速库。
+
+**SF / VF（Scalable Function / Virtual Function）**
+网卡虚拟化机制：在一张物理网卡上虚拟出大量轻量功能，分配给不同容器/VM。
+
+**INT（In-band Network Telemetry）**
+交换机把每跳的队列深度、链路速率等戳进数据包头，供端侧精确计算拥塞，是 HPCC 的基础。
+
+**HPCC / TIMELY / Swift**
+现代拥塞控制算法：HPCC 用网内遥测（INT）精确测量、近零排队；TIMELY 用 RTT 梯度；
+Swift 用端到端延迟拆分（fabric + endpoint）。
+
+**PCC（Programmable Congestion Control）**
+在网卡（ConnectX-6 Dx / BlueField）上用受限 C 编写自定义拥塞控制算法的能力。
+
+**GGA（Generic Global Accelerator）**
+DPU 内把 regex/SHA 等加速器与 RDMA 数据搬运串成一条流水线的机制，数据不进主机。
+
+---
+
 ## 参考文献
 
 ### 标准规范

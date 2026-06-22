@@ -1,15 +1,25 @@
-# RDMA Demo for Beginners
+# RDMA 系统教程（由浅入深，小白 → 高级工程师）
 
-这个项目提供一个面向初学者的 RDMA 最小示例，包含两个程序：
+本仓库是一套**由浅入深的 RDMA 系统教程**：从一个最小可运行示例起步，逐级深入到
+硬件模型、性能工程、可扩展架构、可靠性、高级内存管理、系统集成与调试。配套
+**5 个可运行示例 + 8 个理论阶段 + 40+ 张 SVG 原理图 + 术语表**。
 
-- `rdma_server`：等待连接，接收客户端内存信息，执行一次 `RDMA Write` 写入客户端内存。
-- `rdma_client`：建立连接，注册可远端写入内存，发送本地 MR 信息，接收 ACK 并打印被远端写入后的内容。
+起步示例（`examples/01-write-demo/`）包含两个程序：
 
-> 🚧 **项目定位升级中**：本仓库正从「面向初学者的 RDMA 最小示例」演进为
-> **「由浅入深、面向高级工程师的 RDMA 系统教程」**——覆盖硬件模型、性能工程、
-> 可扩展架构、可靠性与生产化、高级内存管理及上层系统集成。下方当前 demo 将被
-> 收编为教程的第一个示例（`examples/01-write-demo/`）。编写路线图与施工清单见
-> **[TODO.md](./TODO.md)**。
+- `server`：等待连接，接收客户端内存信息，执行一次 `RDMA Write` 写入客户端内存。
+- `client`：建立连接，注册可远端写入内存，发送本地 MR 信息，接收 ACK 并打印被远端写入后的内容。
+
+### 📚 学习路径（建议按序）
+
+> **前置知识**：会写 C、用过 TCP socket、了解基本 Linux 命令即可，不需要任何 RDMA 背景。
+
+1. **环境准备** → 本 README §3、§3.5（没有硬件就用 Soft-RoCE）。
+2. **原理入门** → [`CLAUDE.md`](./CLAUDE.md) 第 1–8 节（内核旁路、PD/MR/QP/CQ、SEND/RECV、WRITE/READ、post/poll）。
+3. **动手实践** → [`examples/`](./examples/) 01→05（WRITE / 双边乒乓 / READ / IMM / ATOMIC）。
+4. **进阶专题** → `docs/` 各阶段：[硬件模型](docs/stage1-hardware-model.md) → [性能工程](docs/stage3-performance.md) → [可扩展架构](docs/stage4-scalability.md) → [可靠性](docs/stage5-reliability.md) → [内存管理](docs/stage6-memory.md) → [系统集成](docs/stage7-integration.md) → [调试](docs/stage8-debugging.md)。
+5. **随手查** → [术语表 `docs/glossary.md`](docs/glossary.md)。
+
+> `TODO.md` 是面向贡献者的编写路线图与施工清单；普通读者按上面的学习路径即可。
 
 > 📘 **想系统学习 RDMA？** 请阅读配套教程 **[CLAUDE.md](./CLAUDE.md)**：它以本仓库
 > 代码为实例，逐节讲解 RDMA 的**主要原理**（内核旁路 / 零拷贝、PD/MR/QP/CQ、
@@ -59,7 +69,29 @@
 
 ```bash
 dnf install -y gcc make pkgconf-pkg-config rdma-core-devel libibverbs-devel librdmacm-devel
+# Debian/Ubuntu：apt install -y build-essential libibverbs-dev librdmacm-dev rdma-core
 ```
+
+## 3.5 没有 RDMA 网卡？先用 Soft-RoCE 30 秒搭好环境（强烈建议先做）
+
+本教程**所有示例**都能在 Soft-RoCE（`rdma_rxe` 内核模块，纯软件模拟 RoCEv2）上
+跑通，无需任何 RDMA 硬件。普通笔记本 / 云主机 / 虚拟机均可：
+
+```bash
+# 1. 加载模块（内核 ≥ 5.8 内置）
+sudo modprobe rdma_rxe
+
+# 2. 绑定到一张以太网口（用 `ip link` 查看真实网卡名，替换 eth0）
+sudo rdma link add rxe0 type rxe netdev eth0
+
+# 3. 验证：应看到 rxe0，且 state 为 PORT_ACTIVE
+ibv_devinfo
+rdma link show
+```
+
+之后下面的运行命令里，`<RDMA网卡IP>` 直接填该以太网口的 IP（`ip addr show eth0`）。
+Soft-RoCE 延迟较高（~50µs）、不能用于性能基准，但功能完整，是学习与验证逻辑的
+理想环境。深入说明（含 Docker/容器、限制）见 [`docs/stage7-integration.md`](docs/stage7-integration.md) §7.4。
 
 ## 4. 构建
 

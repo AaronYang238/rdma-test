@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="sans-serif" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrowfast" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c62828"/>
+    </marker>
+  </defs>
+  <rect width="720" height="300" fill="#fbfbfd"/>
+  <text x="360" y="22" text-anchor="middle" font-weight="bold" font-size="14">直接 Verbs：mlx5dv / DEVX 绕过 libibverbs 抽象</text>
+
+  <!-- divider -->
+  <line x1="360" y1="40" x2="360" y2="290" stroke="#ccc" stroke-dasharray="4 4"/>
+
+  <!-- LEFT: portable path -->
+  <text x="175" y="56" text-anchor="middle" font-weight="bold" fill="#1565c0">标准路径（可移植，多层间接）</text>
+
+  <rect x="95" y="70" width="160" height="34" rx="6" fill="#1565c0"/>
+  <text x="175" y="92" text-anchor="middle" fill="white" font-weight="bold">应用 App</text>
+
+  <rect x="95" y="116" width="160" height="34" rx="6" fill="#1565c0"/>
+  <text x="175" y="138" text-anchor="middle" fill="white">libibverbs（通用抽象）</text>
+
+  <rect x="95" y="162" width="160" height="34" rx="6" fill="#5e35b1"/>
+  <text x="175" y="184" text-anchor="middle" fill="white">uverbs / 内核驱动</text>
+
+  <rect x="95" y="208" width="160" height="34" rx="6" fill="#2e7d32"/>
+  <text x="175" y="230" text-anchor="middle" fill="white" font-weight="bold">RNIC 硬件</text>
+
+  <line x1="175" y1="104" x2="175" y2="115" stroke="#555" marker-end="url(#arrow)"/>
+  <line x1="175" y1="150" x2="175" y2="161" stroke="#555" marker-end="url(#arrow)"/>
+  <line x1="175" y1="196" x2="175" y2="207" stroke="#555" marker-end="url(#arrow)"/>
+  <text x="175" y="262" text-anchor="middle" font-size="11" fill="#555">函数表分发 + 数据面经驱动封装</text>
+  <text x="175" y="278" text-anchor="middle" font-size="11" fill="#555">优点：跨厂商可移植</text>
+
+  <!-- RIGHT: direct verbs path -->
+  <text x="545" y="56" text-anchor="middle" font-weight="bold" fill="#c62828">直接 Verbs（mlx5 专属，最短路径）</text>
+
+  <rect x="465" y="70" width="160" height="34" rx="6" fill="#1565c0"/>
+  <text x="545" y="92" text-anchor="middle" fill="white" font-weight="bold">应用 App（自建 WQE）</text>
+
+  <rect x="465" y="116" width="160" height="34" rx="6" fill="#ef6c00"/>
+  <text x="545" y="134" text-anchor="middle" fill="white" font-weight="bold" font-size="11">mlx5dv / DEVX</text>
+  <text x="545" y="147" text-anchor="middle" fill="white" font-size="10">取裸 SQ/CQ buf · dbrec · BF</text>
+
+  <rect x="465" y="208" width="160" height="34" rx="6" fill="#2e7d32"/>
+  <text x="545" y="230" text-anchor="middle" fill="white" font-weight="bold">RNIC 硬件</text>
+
+  <!-- direct doorbell bypass -->
+  <line x1="545" y1="104" x2="545" y2="115" stroke="#555" marker-end="url(#arrow)"/>
+  <line x1="545" y1="150" x2="545" y2="207" stroke="#c62828" stroke-width="2" marker-end="url(#arrowfast)"/>
+  <text x="555" y="182" font-size="11" fill="#c62828">用户态写 WQE</text>
+  <text x="555" y="196" font-size="11" fill="#c62828">+ 直敲 doorbell</text>
+
+  <text x="545" y="262" text-anchor="middle" font-size="11" fill="#555">少一层封装：最低延迟 + 标准 verbs 无的特性</text>
+  <text x="545" y="278" text-anchor="middle" font-size="11" fill="#c62828">代价：厂商锁定 · 须跟 PRM 结构布局</text>
+</svg>

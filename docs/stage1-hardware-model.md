@@ -188,8 +188,11 @@ RC QP 保证报文有序到达，但"有序到达"与"对端内存可见"、"对
 
 - **SEND 可用作数据栅栏**：RC 下，同一 QP 先 WRITE 后 SEND，对端**保证**先收到
   WRITE 的数据，再收到 SEND——这正是示例 01/04 用 SEND/ACK 当通知的理论依据。
-- **READ 不保证与之前 WRITE 的顺序**：`post_write` 之后立刻 `post_read`，READ
-  可能读到 WRITE 未落地前的旧值（网卡流水线乱序）。
+- **同一 QP、同一地址：WRITE→READ 有序**：RC 保证同一 QP 上后投递的 READ 能
+  观测到先投递的 WRITE 已生效（操作按 SQ 顺序在对端执行）。真正需要 FENCE 的
+  场景，是当**本地** READ/ATOMIC 的返回结果要喂给**后续**操作时（见下文
+  FETCH_ADD→FENCE→WRITE），以及 PCIe relaxed ordering 下本地完成顺序的边界
+  情形——而非"同 QP WRITE 后 READ 会读到旧值"。
 - **跨 QP 无顺序保证**：多个 QP 之间没有全局顺序，需应用层同步。
 
 ### IBV_SEND_FENCE
@@ -230,3 +233,23 @@ wc.status != IBV_WC_SUCCESS   → QP 进入 ERROR 态，后续 WR 全部以 flus
 | 1.3 | RC/UD/DC 取舍 | `qp_type` in `ibv_qp_init_attr` | `fill_qp_attr()` `common/rdma_common.h:43` | UD 1 QP vs RC N² QP | 大规模下坚持用 RC 导致 QP 爆炸 |
 | 1.4 | MPT/MTT 鉴权链 | `ibv_reg_mr` `IBV_ACCESS_*` | `examples/*/server.c` `client.c` | reg 慢（ms）；MTT 命中影响 DMA | 权限过宽暴露 rkey |
 | 1.5 | RC 有序但需 fence | `IBV_SEND_FENCE` `wc.status` | `wait_send_comp` / `wait_recv_comp` | fence 串行化 SQ | 误认为 WRITE 后 READ 仍看新值 |
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **MMIO** | 内存映射 I/O，CPU 通过普通 store 指令写设备寄存器（如 doorbell）|
+| **Doorbell（门铃）** | MMIO 写网卡寄存器通知有新 WQE，WC 内存写约 100ns |
+| **DMA** | 网卡直接读写主机内存，不经过 CPU，零拷贝核心 |
+| **IOMMU** | 设备 DMA 地址→物理地址翻译单元，开启会增加 reg_mr 代价 |
+| **MPT** | 内存保护表，存 MR 元数据（lkey/rkey、权限、地址、长度）|
+| **MTT** | 内存翻译表，虚拟/DMA 地址→物理页地址的页表 |
+| **MR** | 已注册内存区域，pin 页 + 建立 MTT/MPT 映射 |
+| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
+| **RC / UC / UD** | 可靠连接 / 不可靠连接 / 不可靠数据报传输类型 |
+| **XRC / DC** | 扩展可靠连接 / 动态连接，缓解 N² QP 爆炸 |
+| **Fence** | `IBV_SEND_FENCE`，保障当前 WR 在之前 READ 完成后才执行 |
