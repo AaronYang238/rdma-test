@@ -11,6 +11,12 @@
 > 工程师的 RDMA 系统教程」**。本文件第 1–8 节是入门主线；进阶篇（硬件模型、
 > 性能工程、可扩展架构、可靠性、高级内存管理、系统集成、调试）的编写路线图与
 > 施工清单见 **[TODO.md](./TODO.md)**，落地后会在此回填导航。
+>
+> 📖 **如何使用本教程**：前置知识只需 C + TCP socket + 基本 Linux。建议顺序：
+> 先按 [`README.md`](./README.md) §3.5 用 Soft-RoCE 搭好环境 → 读本文件第 1–8 节
+> 建立原理直觉 → 跑 [`examples/`](./examples/) 01–05 动手验证 → 再进入 `docs/`
+> 各阶段专题。本文第 2–8 节的代码以 `examples/01-write-demo/{server,client}.c`
+> 与 `common/rdma_common.h` 为准（`src/` 为同一程序的历史副本）。
 
 ---
 
