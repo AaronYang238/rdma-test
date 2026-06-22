@@ -270,3 +270,21 @@ ib_send_bw -d mlx5_0             # 标准带宽基准
 | **代码** | 每个 wc 必须打印 status_str + vendor_err；调试时开 IBVERBS_DEBUG=1；建链失败先查 port_state |
 | **性能** | hw_counters 中 np_cnp_sent 是拥塞的第一信号；perf flamegraph 定位 CPU 热点；NUMA 亲和是性能翻倍的低垂果实 |
 | **陷阱** | WR_FLUSH_ERR 批量出现不是真正错误；symbol_errors > 0 必须换线缆；ibdump 需要特殊 firmware，RoCE 场景优先用 tcpdump |
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **GID** | 全局标识符，`show gids` 排查 RoCE 配置 |
+| **LID** | 本地标识符，RoCE 下为 0 |
+| **QPN** | QP 编号，`rdma res show qp` 排查 QP 泄漏 |
+| **PSN** | 包序列号，抓包分析乱序/重传 |
+| **WC** | 工作完成，`ibv_wc_status_str` + `vendor_err` 定位错误 |
+| **RNR** | 接收未就绪错误，对端 RQ 空 |
+| **PFC / ECN / CNP** | 拥塞相关，对应 hw_counters 指标 |
+| **DCQCN** | 拥塞控制，`np_cnp_sent` 是降速第一信号 |
+| **RoCE** | RoCEv2 = UDP 4791，tcpdump 抓包过滤 |

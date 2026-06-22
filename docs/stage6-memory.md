@@ -326,3 +326,20 @@ if (!buf) { fprintf(stderr, "numa_alloc_onnode failed\n"); exit(1); }
 | ODP | 按需 pin 页，NIC 触发缺页中断 | `IBV_ACCESS_ON_DEMAND`，`ibv_advise_mr` | 零预注册开销，适合稀疏大缓冲 | 首次访问延迟 10–100 µs/页 |
 | Memory Windows | 大 MR 划分子窗口，独立 rkey | `ibv_alloc_mw`，`ibv_bind_mw`，`IBV_WR_LOCAL_INV` | 动态授权/撤销无需销毁 MR | 需 QP 支持；Type 2 需驱动版本匹配 |
 | 大页 | 减少 MTT 项，提升 NIC TLB 命中率 | `MAP_HUGETLB`，`mlock`，`mbind` | 512× 更少 MTT 项，TLB 覆盖提升 512× | THP 与 RDMA 不安全；需预配置系统大页池 |
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **MR** | 已注册内存区域，reg_mr 代价来自 pin + MTT + IOMMU |
+| **MTT / MPT** | 内存翻译表 / 保护表；大页大幅减少 MTT 条目数 |
+| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
+| **ODP** | 按需分页，`IBV_ACCESS_ON_DEMAND`，访问时缺页 pin |
+| **MW** | 内存窗口，MR 子区域动态授权，可撤销 rkey |
+| **IOMMU** | DMA 地址翻译单元，影响注册开销 |
+| **PD** | 保护域，MR/MW/QP 的归属边界 |
+| **NUMA** | 非一致内存访问，应分配 NUMA-local 内存 |

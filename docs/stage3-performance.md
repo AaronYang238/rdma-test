@@ -311,3 +311,20 @@ P99 > 3 × P50  → 存在明显抖动，检查：
 | 3.4 | 减少 doorbell 次数 | `wr.next` 链式 · `ibv_post_send(list)` | — | doorbell 开销 ÷ batch | 链尾 `next=NULL` 且 SIGNALED |
 | 3.5 | 消除锁 + NUMA 延迟 | `taskset` · `numa_alloc_onnode` | — | P99 抖动减少 30–50 ns | buffer 跨 NUMA 分配 |
 | 3.6 | 建立可重复的度量基线 | `ib_write_bw/lat` · `--output=percentiles` | `02-send-recv` | — | 单次测量 vs 统计百分位 |
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **SQ / RQ** | 发送队列 / 接收队列，组成一个 QP |
+| **CQ / CQE** | 完成队列 / 完成队列条目，poll_cq 取出结果 |
+| **WR / WQE** | 工作请求 / 其在硬件队列中的存储形式 |
+| **SGE** | Scatter/Gather 元素 `{addr, length, lkey}`，一个 WR 可含多个 |
+| **Doorbell** | MMIO 通知 NIC 新 WQE；批处理可合并多次 doorbell |
+| **IMM** | 立即数，随 SEND/WRITE_WITH_IMM 携带的 32 位通知 |
+| **Credit** | 流控信用，确保对端 RQ 有足够预投递 WR |
+| **NUMA** | 非一致内存访问，QP/MR/线程应绑定同一 NUMA 节点 |

@@ -220,3 +220,19 @@ Soft-RoCE 支持本教程所有示例（SEND/RECV、WRITE、READ、ATOMIC、SRQ 
 | **代码** | RPC 环形缓冲槽位用 imm_data 传递；GPUDirect 仅伪代码参考；Soft-RoCE 搭建脚本即可跑全部示例 |
 | **性能** | RDMA RPC 比 TCP 快 5–10×；GPUDirect 消除 GPU←→CPU 拷贝（带宽 × 2）；Soft-RoCE 延迟高但功能完整 |
 | **陷阱** | GPUDirect 需确认 PCIe 拓扑（nvidia-smi topo）；NCCL 调参需匹配 QP 数与 GPU 数；Soft-RoCE 不能用于性能基准 |
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **IMM** | 立即数，WRITE_WITH_IMM 实现 RPC 响应+通知合一 |
+| **SGE** | Scatter/Gather 元素，构造请求/响应缓冲 |
+| **RC / UD** | 传输类型，RPC 用 RC，广播控制可用 UD |
+| **RoCE** | RDMA over Converged Ethernet，RoCEv2 用 UDP 4791 |
+| **GID** | 全局标识符，跨节点寻址 |
+| **NUMA** | GPUDirect 要求 NIC 与 GPU 同 PCIe 拓扑/NUMA |
+| **MR / rkey** | GPU 显存也可 `ibv_reg_mr` 注册（需 peer-memory）|

@@ -249,3 +249,21 @@ cat /sys/class/infiniband/mlx5_0/ports/1/counters/port_rcv_errors
 rdma res show mr                     # 列出系统所有 MR（需 iproute2-rdma）
 rdma res show qp                     # 列出系统所有 QP
 ```
+
+---
+
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **WC / CQE** | 工作完成；`wc.status` 必须检查 |
+| **ACK** | RC 下接收方 NIC 自动回发的确认包 |
+| **RNR** | Receiver Not Ready，对端 RQ 空时返回的 NAK |
+| **PSN** | 包序列号，用于乱序检测与重传 |
+| **PFC** | 优先级流控，PAUSE 帧防丢包，副作用是 HOL 阻塞 |
+| **ECN** | 显式拥塞通知，交换机打 CE 标记不丢包 |
+| **CNP** | 拥塞通知包，接收方回送触发发送方降速 |
+| **DCQCN** | RoCEv2 拥塞控制：ECN + CNP + 乘法降速/加法恢复 |
+| **PD** | 保护域，资源销毁须遵守依赖顺序 |
