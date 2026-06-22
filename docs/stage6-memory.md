@@ -289,11 +289,20 @@ cat /proc/meminfo | grep Huge
 # Hugepagesize:       2048 kB
 ```
 
-### THP 警告：透明大页与 RDMA 不兼容
+### THP 警告：透明大页与 RDMA 的注意事项
 
-**不要**依赖 THP（Transparent HugePage）搭配 RDMA 使用。THP 由内核
-动态合并/拆分页面（khugepaged、compaction），**可能在 NIC DMA 期间移动
-物理页面**，导致 DMA 写入错误地址或触发 IOMMU fault。
+**澄清**：对于**普通注册的 MR**（非 ODP），`ibv_reg_mr` 内部通过
+`get_user_pages` 把页 **pin 住**，内核的 THP 合并/拆分、compaction、迁移
+都**不会**动这些已 pin 的页——这种情况下 DMA 是安全的。
+
+THP 的真正风险出现在两类场景：
+- **ODP MR**：页未 pin，khugepaged 迁移页面会触发 MR 失效与重新缺页，带来
+  延迟抖动甚至正确性边界问题。
+- **fork() + COW**：子进程写时复制可能让父进程注册的页被换到新物理页
+  （配合 `ibv_fork_init()` / `RDMAV_FORK_SAFE=1` 规避，见阶段五 5.4）。
+
+因此并非"THP 与 RDMA 不兼容"，而是：**ODP 或 fork 场景下需谨慎**；追求
+确定性大页性能时，优先用显式 `MAP_HUGETLB` 而非依赖 THP 自动合并。
 
 正确做法：
 
@@ -325,7 +334,7 @@ if (!buf) { fprintf(stderr, "numa_alloc_onnode failed\n"); exit(1); }
 | 注册缓存 | 复用已 pin 内存，避免重复系统调用 | `ibv_reg_mr` / `ibv_dereg_mr` | 热路径省去 1–10 µs | 地址重用时 key 碰撞；释放顺序错误 |
 | ODP | 按需 pin 页，NIC 触发缺页中断 | `IBV_ACCESS_ON_DEMAND`，`ibv_advise_mr` | 零预注册开销，适合稀疏大缓冲 | 首次访问延迟 10–100 µs/页 |
 | Memory Windows | 大 MR 划分子窗口，独立 rkey | `ibv_alloc_mw`，`ibv_bind_mw`，`IBV_WR_LOCAL_INV` | 动态授权/撤销无需销毁 MR | 需 QP 支持；Type 2 需驱动版本匹配 |
-| 大页 | 减少 MTT 项，提升 NIC TLB 命中率 | `MAP_HUGETLB`，`mlock`，`mbind` | 512× 更少 MTT 项，TLB 覆盖提升 512× | THP 与 RDMA 不安全；需预配置系统大页池 |
+| 大页 | 减少 MTT 项，提升 NIC TLB 命中率 | `MAP_HUGETLB`，`mlock`，`mbind` | 512× 更少 MTT 项，TLB 覆盖提升 512× | 普通 pin MR 安全；ODP/fork 下慎用 THP；优先显式 `MAP_HUGETLB` |
 
 ---
 

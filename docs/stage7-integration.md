@@ -138,7 +138,8 @@ nvme connect -t rdma -a <target_ip> -s 4420 -n nqn.xxx
 
 AI 训练中的集合通信库，AllReduce / AllGather 底层使用 RDMA：
 
-- 使用 RC QP + RDMA WRITE + 原子操作实现 ring-allreduce。
+- IB 传输主要用 RC QP + RDMA WRITE / WRITE_WITH_IMM 搬运数据（不依赖 RDMA
+  原子）；ring/tree 算法的同步靠 flag/计数轮询而非硬件原子操作。
 - `NCCL_IB_HCA` 环境变量指定使用哪张 RDMA 网卡。
 - 与 GPUDirect RDMA 结合实现 GPU-to-GPU 零拷贝通信。
 

@@ -188,8 +188,11 @@ RC QP 保证报文有序到达，但"有序到达"与"对端内存可见"、"对
 
 - **SEND 可用作数据栅栏**：RC 下，同一 QP 先 WRITE 后 SEND，对端**保证**先收到
   WRITE 的数据，再收到 SEND——这正是示例 01/04 用 SEND/ACK 当通知的理论依据。
-- **READ 不保证与之前 WRITE 的顺序**：`post_write` 之后立刻 `post_read`，READ
-  可能读到 WRITE 未落地前的旧值（网卡流水线乱序）。
+- **同一 QP、同一地址：WRITE→READ 有序**：RC 保证同一 QP 上后投递的 READ 能
+  观测到先投递的 WRITE 已生效（操作按 SQ 顺序在对端执行）。真正需要 FENCE 的
+  场景，是当**本地** READ/ATOMIC 的返回结果要喂给**后续**操作时（见下文
+  FETCH_ADD→FENCE→WRITE），以及 PCIe relaxed ordering 下本地完成顺序的边界
+  情形——而非"同 QP WRITE 后 READ 会读到旧值"。
 - **跨 QP 无顺序保证**：多个 QP 之间没有全局顺序，需应用层同步。
 
 ### IBV_SEND_FENCE

@@ -141,12 +141,14 @@ tshark -r rdma.pcap -T fields \
   -e frame.number -e ip.src -e ip.dst \
   -e infiniband.bth.opcode   # BTH opcode: SEND/WRITE/READ/ACK
 
-# 常见 BTH opcode
+# 常见 BTH opcode（RC 传输，高 3 位 = 000）
 # 0x04 = SEND Only
 # 0x0a = RDMA WRITE Only
-# 0x0c = RDMA WRITE WITH Immediate
-# 0x06 = RDMA READ Request
-# 0x10 = ACK
+# 0x0b = RDMA WRITE Only WITH Immediate
+# 0x0c = RDMA READ Request
+# 0x10 = RDMA READ Response Only
+# 0x11 = Acknowledge（RC ACK/NAK）
+# 0x13 = CmpSwap   0x14 = FetchAdd（原子操作）
 ```
 
 ### perf 与 eBPF

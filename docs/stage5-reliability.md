@@ -156,9 +156,12 @@ DCQCN（Data Center Quantized Congestion Notification）是 RoCEv2 标准拥塞�
 ls /sys/class/infiniband/mlx5_0/ports/1/hw_counters/
 
 # 关键指标
-cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/np_cnp_sent      # CNP 发送数
-cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/rp_cnp_handled   # CNP 处理数
-cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/out_of_buffer     # PFC 触发次数
+cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/np_cnp_sent      # 本机作为通知点(NP)发出的 CNP 数
+cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/rp_cnp_handled   # 本机作为反应点(RP)收到并降速的 CNP 数
+cat /sys/class/infiniband/mlx5_0/ports/1/hw_counters/out_of_buffer    # 接收端无可用 RQ/SRQ WR 的丢包数（RNR 类）
+
+# PFC pause 计数（注意：与 out_of_buffer 无关）需看以太网侧计数器：
+ethtool -S eth0 | grep -E 'rx_pause|tx_pause|prio.*pause'
 
 # 使用 perfquery 查看端口计数器
 perfquery -x <lid>
