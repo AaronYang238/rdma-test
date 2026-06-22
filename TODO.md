@@ -145,7 +145,8 @@
 - [x] R.2 `CLAUDE.md` 增补「教程导航」与各 `examples/` 索引，保持每节一张 SVG。
 - [x] R.3 新建 `examples/` 目录结构与共享 `common/` 脚手架。
 - [x] R.4 顶层 `Makefile` 支持递归构建所有 `examples/`。
-- [ ] R.5 增加 `docs/` 放术语表、参考文献（IB Spec、RoCEv2、各 vendor 手册）。
+- [x] R.5 增加 `docs/` 放术语表、参考文献（IB Spec、RoCEv2、各 vendor 手册）。
+      文档：`docs/glossary.md`。
 - [ ] R.6 CI（可选）：在 Soft-RoCE 环境冒烟测试每个示例可建链。
 
 ---
