@@ -4,6 +4,24 @@
 
 ---
 
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **SRQ** | 共享接收队列，多 QP 共用一个 RQ，内存降为 O(1) |
+| **CQ / CQE** | 完成队列；共享 CQ 用 `wr_id`/`qp_num` 区分来源 |
+| **QP / QPN** | 队列对 / 其 24 位唯一编号，建连时交换 |
+| **PSN** | 包序列号，建连双方交换初始值（随机起始）|
+| **GID** | 128 位全局标识符，RoCE 下由 MAC/IP 派生 |
+| **AH** | 地址句柄，UD SEND 须指定目标地址 |
+| **RC / UC / UD** | 三种传输类型，扩展性 UD > DC > RC |
+| **DC / DCT / DCI** | 动态连接 / 目标端 / 发起端，缓解 N² QP |
+| **XRC** | 扩展可靠连接，纯标准 RoCE 下 DC 的替代方案 |
+
+
+---
 ## 4.1 SRQ（Shared Receive Queue）
 
 > 🛠 可运行示例：[`examples/07-srq/`](../examples/07-srq/)
@@ -210,19 +228,3 @@ DC 结合了 RC 的可靠语义（WRITE/READ）与 UD 的一对多扩展性：
 | **陷阱** | SRQ 耗尽静默丢包；QP 未到 RTR 就 post_recv 报错；ERROR 态 QP 须 RESET 后重建；UD 消息含 40B GRH 头需在 RQ 预留额外空间 |
 
 ---
-
-## 本阶段术语速查
-
-> 完整术语表见 [`docs/glossary.md`](glossary.md)。
-
-| 术语 | 含义 |
-|------|------|
-| **SRQ** | 共享接收队列，多 QP 共用一个 RQ，内存降为 O(1) |
-| **CQ / CQE** | 完成队列；共享 CQ 用 `wr_id`/`qp_num` 区分来源 |
-| **QP / QPN** | 队列对 / 其 24 位唯一编号，建连时交换 |
-| **PSN** | 包序列号，建连双方交换初始值（随机起始）|
-| **GID** | 128 位全局标识符，RoCE 下由 MAC/IP 派生 |
-| **AH** | 地址句柄，UD SEND 须指定目标地址 |
-| **RC / UC / UD** | 三种传输类型，扩展性 UD > DC > RC |
-| **DC / DCT / DCI** | 动态连接 / 目标端 / 发起端，缓解 N² QP |
-| **XRC** | 扩展可靠连接，纯标准 RoCE 下 DC 的替代方案 |

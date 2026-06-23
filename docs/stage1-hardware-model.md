@@ -17,6 +17,26 @@
 
 ---
 
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **MMIO** | 内存映射 I/O，CPU 通过普通 store 指令写设备寄存器（如 doorbell）|
+| **Doorbell（门铃）** | MMIO 写网卡寄存器通知有新 WQE，WC 内存写约 100ns |
+| **DMA** | 网卡直接读写主机内存，不经过 CPU，零拷贝核心 |
+| **IOMMU** | 设备 DMA 地址→物理地址翻译单元，开启会增加 reg_mr 代价 |
+| **MPT** | 内存保护表，存 MR 元数据（lkey/rkey、权限、地址、长度）|
+| **MTT** | 内存翻译表，虚拟/DMA 地址→物理页地址的页表 |
+| **MR** | 已注册内存区域，pin 页 + 建立 MTT/MPT 映射 |
+| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
+| **RC / UC / UD** | 可靠连接 / 不可靠连接 / 不可靠数据报传输类型 |
+| **XRC / DC** | 扩展可靠连接 / 动态连接，缓解 N² QP 爆炸 |
+| **Fence** | `IBV_SEND_FENCE`，保障当前 WR 在之前 READ 完成后才执行 |
+
+
+---
 ## 1. 数据路径的真实代价
 
 RDMA 的"内核旁路"并不是魔法——它把系统调用的开销换成了 **MMIO + PCIe 事务**
@@ -235,21 +255,3 @@ wc.status != IBV_WC_SUCCESS   → QP 进入 ERROR 态，后续 WR 全部以 flus
 | 1.5 | RC 有序但需 fence | `IBV_SEND_FENCE` `wc.status` | `wait_send_comp` / `wait_recv_comp` | fence 串行化 SQ | 误认为 WRITE 后 READ 仍看新值 |
 
 ---
-
-## 本阶段术语速查
-
-> 完整术语表见 [`docs/glossary.md`](glossary.md)。
-
-| 术语 | 含义 |
-|------|------|
-| **MMIO** | 内存映射 I/O，CPU 通过普通 store 指令写设备寄存器（如 doorbell）|
-| **Doorbell（门铃）** | MMIO 写网卡寄存器通知有新 WQE，WC 内存写约 100ns |
-| **DMA** | 网卡直接读写主机内存，不经过 CPU，零拷贝核心 |
-| **IOMMU** | 设备 DMA 地址→物理地址翻译单元，开启会增加 reg_mr 代价 |
-| **MPT** | 内存保护表，存 MR 元数据（lkey/rkey、权限、地址、长度）|
-| **MTT** | 内存翻译表，虚拟/DMA 地址→物理页地址的页表 |
-| **MR** | 已注册内存区域，pin 页 + 建立 MTT/MPT 映射 |
-| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
-| **RC / UC / UD** | 可靠连接 / 不可靠连接 / 不可靠数据报传输类型 |
-| **XRC / DC** | 扩展可靠连接 / 动态连接，缓解 N² QP 爆炸 |
-| **Fence** | `IBV_SEND_FENCE`，保障当前 WR 在之前 READ 完成后才执行 |

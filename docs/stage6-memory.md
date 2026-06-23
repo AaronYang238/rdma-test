@@ -8,6 +8,23 @@
 
 ---
 
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **MR** | 已注册内存区域，reg_mr 代价来自 pin + MTT + IOMMU |
+| **MTT / MPT** | 内存翻译表 / 保护表；大页大幅减少 MTT 条目数 |
+| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
+| **ODP** | 按需分页，`IBV_ACCESS_ON_DEMAND`，访问时缺页 pin |
+| **MW** | 内存窗口，MR 子区域动态授权，可撤销 rkey |
+| **IOMMU** | DMA 地址翻译单元，影响注册开销 |
+| **PD** | 保护域，MR/MW/QP 的归属边界 |
+| **NUMA** | 非一致内存访问，应分配 NUMA-local 内存 |
+
+
+---
 ## 6.1 注册开销与缓存
 
 ![注册缓存](img/s6-1-reg-cache.svg)
@@ -337,18 +354,3 @@ if (!buf) { fprintf(stderr, "numa_alloc_onnode failed\n"); exit(1); }
 | 大页 | 减少 MTT 项，提升 NIC TLB 命中率 | `MAP_HUGETLB`，`mlock`，`mbind` | 512× 更少 MTT 项，TLB 覆盖提升 512× | 普通 pin MR 安全；ODP/fork 下慎用 THP；优先显式 `MAP_HUGETLB` |
 
 ---
-
-## 本阶段术语速查
-
-> 完整术语表见 [`docs/glossary.md`](glossary.md)。
-
-| 术语 | 含义 |
-|------|------|
-| **MR** | 已注册内存区域，reg_mr 代价来自 pin + MTT + IOMMU |
-| **MTT / MPT** | 内存翻译表 / 保护表；大页大幅减少 MTT 条目数 |
-| **lkey / rkey** | 本端 / 对端引用 MR 的密钥 |
-| **ODP** | 按需分页，`IBV_ACCESS_ON_DEMAND`，访问时缺页 pin |
-| **MW** | 内存窗口，MR 子区域动态授权，可撤销 rkey |
-| **IOMMU** | DMA 地址翻译单元，影响注册开销 |
-| **PD** | 保护域，MR/MW/QP 的归属边界 |
-| **NUMA** | 非一致内存访问，应分配 NUMA-local 内存 |
