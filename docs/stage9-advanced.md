@@ -21,6 +21,31 @@
 
 ---
 
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **mlx5dv** | mlx5 Direct Verbs，取出标准 verbs 对象的裸硬件指针（SQ/CQ/dbrec/BF） |
+| **DEVX** | `mlx5dv_devx_*`，用 PRM 命令直接创建/操作硬件对象（DC、steering 等） |
+| **PRM** | Programmer's Reference Manual，mlx5 硬件结构布局规范 |
+| **WQE ctrl segment** | WQE 控制头：opcode、qp_num、`ds`（长度）、signal/fence 位、SQ 索引 |
+| **DB record (dbrec)** | 主机内存中的 SQ 生产者索引，网卡 DMA 读取以同步队列，真相来源 |
+| **BlueFlame (BF)** | WC 内存映射的门铃寄存器，小 WQE 可整条 inline 进去省一次 PCIe read |
+| **DPU** | Data Processing Unit，NIC + ARM 核 + 加速器，可下沉整条控制面 |
+| **DOCA** | BlueField DPU 的上层 SDK（Flow/DMA/crypto/storage/doca_rdma 等库） |
+| **SF** | Scalable Function，比 SR-IOV VF 更轻量、可大规模实例化的虚拟功能 |
+| **GGA** | Generic Global Accelerator，DPU 上 regex/SHA/压缩等通用加速器 |
+| **DCQCN** | RoCEv2 标准 CC，基于 ECN 二元信号 + CNP，收敛慢、参数难调 |
+| **TIMELY** | 基于 RTT 梯度的 CC，用网卡硬件时戳，纯端侧 |
+| **HPCC** | High Precision CC，用在网遥测 INT 精确算速率，收敛最快、近零排队 |
+| **Swift** | Google 的时延型 CC，目标时延拆分为 fabric + endpoint，纯端侧 |
+| **INT** | In-Network Telemetry，交换机把队列深度/链路利用率戳进包头 |
+| **PCC** | 可编程拥塞控制，用受限 C 写算法跑在 ConnectX/BlueField 网卡上 |
+
+
+---
 ## 9.1 直接 Verbs：mlx5dv / DEVX 绕过 libibverbs 抽象
 
 ![直接 Verbs 路径对比](img/s9-1-directverbs.svg)
@@ -352,26 +377,3 @@ NVIDIA ConnectX/BlueField 支持**用户可编程拥塞控制**：用**受限 C*
 | 9.4 | 用精确信号（时延/INT）替代二元 ECN | TIMELY/HPCC/Swift 算法 · PCC 可编程引擎 | INT 遥测回算速率 · 受限 C 写 CC | 近零排队、收敛快、少调参 | HPCC 需交换机 INT；DCQCN 参数地狱 |
 
 ---
-
-## 本阶段术语速查
-
-> 完整术语表见 [`docs/glossary.md`](glossary.md)。
-
-| 术语 | 含义 |
-|------|------|
-| **mlx5dv** | mlx5 Direct Verbs，取出标准 verbs 对象的裸硬件指针（SQ/CQ/dbrec/BF） |
-| **DEVX** | `mlx5dv_devx_*`，用 PRM 命令直接创建/操作硬件对象（DC、steering 等） |
-| **PRM** | Programmer's Reference Manual，mlx5 硬件结构布局规范 |
-| **WQE ctrl segment** | WQE 控制头：opcode、qp_num、`ds`（长度）、signal/fence 位、SQ 索引 |
-| **DB record (dbrec)** | 主机内存中的 SQ 生产者索引，网卡 DMA 读取以同步队列，真相来源 |
-| **BlueFlame (BF)** | WC 内存映射的门铃寄存器，小 WQE 可整条 inline 进去省一次 PCIe read |
-| **DPU** | Data Processing Unit，NIC + ARM 核 + 加速器，可下沉整条控制面 |
-| **DOCA** | BlueField DPU 的上层 SDK（Flow/DMA/crypto/storage/doca_rdma 等库） |
-| **SF** | Scalable Function，比 SR-IOV VF 更轻量、可大规模实例化的虚拟功能 |
-| **GGA** | Generic Global Accelerator，DPU 上 regex/SHA/压缩等通用加速器 |
-| **DCQCN** | RoCEv2 标准 CC，基于 ECN 二元信号 + CNP，收敛慢、参数难调 |
-| **TIMELY** | 基于 RTT 梯度的 CC，用网卡硬件时戳，纯端侧 |
-| **HPCC** | High Precision CC，用在网遥测 INT 精确算速率，收敛最快、近零排队 |
-| **Swift** | Google 的时延型 CC，目标时延拆分为 fabric + endpoint，纯端侧 |
-| **INT** | In-Network Telemetry，交换机把队列深度/链路利用率戳进包头 |
-| **PCC** | 可编程拥塞控制，用受限 C 写算法跑在 ConnectX/BlueField 网卡上 |

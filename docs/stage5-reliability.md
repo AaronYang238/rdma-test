@@ -5,6 +5,24 @@
 
 ---
 
+## 本阶段术语速查
+
+> 完整术语表见 [`docs/glossary.md`](glossary.md)。
+
+| 术语 | 含义 |
+|------|------|
+| **WC / CQE** | 工作完成；`wc.status` 必须检查 |
+| **ACK** | RC 下接收方 NIC 自动回发的确认包 |
+| **RNR** | Receiver Not Ready，对端 RQ 空时返回的 NAK |
+| **PSN** | 包序列号，用于乱序检测与重传 |
+| **PFC** | 优先级流控，PAUSE 帧防丢包，副作用是 HOL 阻塞 |
+| **ECN** | 显式拥塞通知，交换机打 CE 标记不丢包 |
+| **CNP** | 拥塞通知包，接收方回送触发发送方降速 |
+| **DCQCN** | RoCEv2 拥塞控制：ECN + CNP + 乘法降速/加法恢复 |
+| **PD** | 保护域，资源销毁须遵守依赖顺序 |
+
+
+---
 ## 5.1 错误完成处理
 
 ![WC 错误处理](img/s5-1-wc-error.svg)
@@ -266,19 +284,3 @@ rdma res show qp                     # 列出系统所有 QP
 | **陷阱** | `out_of_buffer` ≠ PFC 计数；fork 前必须 `ibv_fork_init`；已注册内存禁用 `madvise(MADV_DONTNEED)`；`timeout=0`+`retry_cnt=0` 会永久挂起 |
 
 ---
-
-## 本阶段术语速查
-
-> 完整术语表见 [`docs/glossary.md`](glossary.md)。
-
-| 术语 | 含义 |
-|------|------|
-| **WC / CQE** | 工作完成；`wc.status` 必须检查 |
-| **ACK** | RC 下接收方 NIC 自动回发的确认包 |
-| **RNR** | Receiver Not Ready，对端 RQ 空时返回的 NAK |
-| **PSN** | 包序列号，用于乱序检测与重传 |
-| **PFC** | 优先级流控，PAUSE 帧防丢包，副作用是 HOL 阻塞 |
-| **ECN** | 显式拥塞通知，交换机打 CE 标记不丢包 |
-| **CNP** | 拥塞通知包，接收方回送触发发送方降速 |
-| **DCQCN** | RoCEv2 拥塞控制：ECN + CNP + 乘法降速/加法恢复 |
-| **PD** | 保护域，资源销毁须遵守依赖顺序 |
