@@ -1,5 +1,7 @@
 # 示例 06 · 选择性 signaling（selective signaling）
 
+> 📖 对应教材：[第 11 章 · 性能工程](../../docs/book/part2-11-performance.md)
+
 把阶段三 3.1 的核心优化做成可运行对比：同样 N 次 RDMA WRITE，比较
 
 - **轮 A 全 signaled**：每个 WR 都置 `IBV_SEND_SIGNALED`，每发一个就 `ibv_poll_cq`

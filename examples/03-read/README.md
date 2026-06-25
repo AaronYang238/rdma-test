@@ -1,5 +1,7 @@
 # 示例 03 · RDMA READ（单边读）
 
+> 📖 对应教材：[第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-07-write-read.md)
+
 与示例 01 的 WRITE 对称：这次由**客户端发起 READ**，把服务端内存里的数据拉回本地。
 
 要点：

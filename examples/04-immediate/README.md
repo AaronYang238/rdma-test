@@ -1,5 +1,7 @@
 # 示例 04 · WRITE_WITH_IMM（带立即数的单边写）
 
+> 📖 对应教材：[第 9 章 · 立即数与原子操作](../../docs/book/part1-09-imm-atomic.md)
+
 在示例 01 里，服务端 WRITE 完还要再补一发 SEND 当 ACK，客户端才知道数据就绪。
 本示例用 **`IBV_WR_RDMA_WRITE_WITH_IMM`** 把"写数据"和"通知对端"合并为一次操作：
 

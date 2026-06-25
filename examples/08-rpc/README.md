@@ -1,5 +1,7 @@
 # 示例 08 · 极简 RPC over RDMA
 
+> 📖 对应教材：[第 15 章 · 与上层系统集成](../../docs/book/part3-15-integration.md)
+
 把阶段七 7.1 做成可运行示例：一个最小的请求/响应 RPC。客户端发
 `{op, seq, a, b}`，服务端计算（ADD/MUL）后回 `{seq, status, result}`。
 
