@@ -26,7 +26,7 @@
 | **PD** | 保护域，MR/MW/QP 的归属边界 |
 | **NUMA** | 非一致内存访问，应尽量分配 NIC 本地的内存 |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
 
 ---
 
@@ -395,4 +395,4 @@ if (!buf) { fprintf(stderr, "numa_alloc_onnode failed\n"); exit(1); }
 | **PD** | 保护域，MR/MW/QP 的归属边界 |
 | **NUMA** | 非一致内存访问，应分配 NUMA-local 内存 |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。

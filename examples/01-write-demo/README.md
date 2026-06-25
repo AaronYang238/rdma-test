@@ -26,4 +26,4 @@ make                                   # 生成 bin/server bin/client
 
 ## 关联章节
 
-`CLAUDE.md` 第 3（内存注册）、5（SEND/RECV）、6（WRITE/READ）、8（端到端时序）节。
+详见教材[第 4 章 · 内存注册](../../docs/book/part1-04-memory-registration.md)、[第 6 章 · SEND/RECV](../../docs/book/part1-06-send-recv.md)、[第 7 章 · WRITE/READ](../../docs/book/part1-07-write-read.md)、[第 2 章 · 端到端时序](../../docs/book/part1-02-quickstart.md)。

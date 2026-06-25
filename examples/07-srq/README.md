@@ -2,7 +2,7 @@
 
 > 📖 对应教材：[第 12 章 · 可扩展架构](../../docs/book/part2-12-scalability.md)
 
-把阶段四 4.1 做成可运行示例：服务端创建**一个 SRQ**，两个连接（QP）共享同一份
+把教材第 12 章做成可运行示例：服务端创建**一个 SRQ**，两个连接（QP）共享同一份
 预投递的接收 WR；用 `wc.qp_num` 区分消息来源。
 
 - **无 SRQ**：每个 QP 各自维护 RQ，接收缓冲内存 = `QP数 × N`，连接越多越浪费。
@@ -33,4 +33,4 @@ make
 
 ## 关联章节
 
-`docs/stage4-scalability.md` 4.1（SRQ）、4.3（手工 QP）；连接建立见 `CLAUDE.md` 第 4 节。
+详见教材[第 12 章 · 可扩展架构](../../docs/book/part2-12-scalability.md)（SRQ、手工 QP 状态机）；连接建立见[第 5 章](../../docs/book/part1-05-connection.md)。

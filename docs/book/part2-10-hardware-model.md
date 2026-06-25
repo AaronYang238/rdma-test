@@ -343,7 +343,7 @@ wc.status != IBV_WC_SUCCESS   → QP 进入 ERROR 态，后续 WR 全部以 flus
 
 ## 术语速查
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
 
 | 术语 | 含义 |
 |------|------|

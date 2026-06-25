@@ -2,7 +2,7 @@
 
 > 📖 对应教材：[第 11 章 · 性能工程](../../docs/book/part2-11-performance.md)
 
-把阶段三 3.1 的核心优化做成可运行对比：同样 N 次 RDMA WRITE，比较
+把教材第 11 章的核心优化做成可运行对比：同样 N 次 RDMA WRITE，比较
 
 - **轮 A 全 signaled**：每个 WR 都置 `IBV_SEND_SIGNALED`，每发一个就 `ibv_poll_cq`
   等一个完成 —— CQE 生成 + poll 同步开销摊在每次操作上。
@@ -34,4 +34,4 @@ Soft-RoCE 上绝对数值偏慢，但 A/B 相对加速比依然清晰可见。
 
 ## 关联章节
 
-`docs/stage3-performance.md` 3.1；完成机制见 `CLAUDE.md` 第 7 节。
+详见教材[第 11 章 · 性能工程](../../docs/book/part2-11-performance.md)；完成机制见[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)。

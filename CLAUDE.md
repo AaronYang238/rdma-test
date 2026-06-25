@@ -16,8 +16,6 @@
 - **可运行示例**：`examples/01`–`08`，全部可在 Soft-RoCE（无需 RDMA 硬件）上跑通。
   示例与章节的映射见 [`docs/book/appendix-b-examples.md`](docs/book/appendix-b-examples.md)。
 - **原理图**：`docs/img/` 下的 SVG，每节至少一张。
-- `docs/stage*.md`、`docs/glossary.md` 为**历史存根**，仅指向 book 内对应章节，
-  兼容旧链接；正文以 `docs/book/` 为准。
 - `src/` 是最初的单体 demo，已收编为 `examples/01-write-demo/`，保留作历史参照。
 
 ---

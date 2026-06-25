@@ -34,4 +34,4 @@ make
 
 ## 关联章节
 
-`CLAUDE.md` 第 6（WRITE/READ）、7（post/poll）节；`TODO.md` 阶段二 2.4。
+详见教材[第 7 章 · WRITE/READ](../../docs/book/part1-07-write-read.md)、[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)、[第 9 章 · 立即数与原子操作](../../docs/book/part1-09-imm-atomic.md)。

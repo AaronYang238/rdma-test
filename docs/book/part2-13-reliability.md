@@ -21,7 +21,7 @@
 | **DCQCN** | RoCEv2 的拥塞控制算法：ECN + CNP + 乘性降速/加性恢复 |
 | **PD** | 保护域，销毁资源时必须遵守它牵出的依赖顺序 |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
 
 ---
 
@@ -349,4 +349,4 @@ rdma res show qp                     # 列出系统所有 QP
 | **DCQCN** | RoCEv2 拥塞控制：ECN + CNP + 乘法降速/加法恢复 |
 | **PD** | 保护域，资源销毁须遵守依赖顺序 |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
