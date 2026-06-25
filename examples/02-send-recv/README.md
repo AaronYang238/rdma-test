@@ -1,5 +1,7 @@
 # 示例 02 · SEND/RECV 双边乒乓（延迟基准）
 
+> 📖 对应教材：[第 6 章 · 双边操作 SEND/RECV](../../docs/book/part1-06-send-recv.md)
+
 纯双边操作：客户端发 ping，服务端 echo 回 pong，循环 N 次并测量平均往返延迟。
 
 要点：

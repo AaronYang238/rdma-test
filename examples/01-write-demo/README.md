@@ -1,5 +1,7 @@
 # 示例 01 · RDMA WRITE（单边写）
 
+> 📖 对应教材：[第 2 章 · 30 分钟跑起来](../../docs/book/part1-02-quickstart.md) · [第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-07-write-read.md)
+
 教程基线示例（由仓库最初的 `src/` demo 收编而来）。演示**控制面 + 数据面**的
 经典组合：
 
