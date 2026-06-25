@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" font-family="sans-serif" font-size="13">
+  <rect width="760" height="340" fill="#fbfbfd"/>
+  <text x="380" y="24" text-anchor="middle" font-weight="bold" font-size="15">一个类比：寄快递 vs 直接搬进对方仓库</text>
+
+  <!-- TCP analogy -->
+  <text x="195" y="56" text-anchor="middle" font-weight="bold">TCP/IP ≈ 多次转手的快递</text>
+  <rect x="40" y="72" width="310" height="30" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="195" y="92" text-anchor="middle">① 你把货打包（用户态 buffer）</text>
+  <rect x="40" y="110" width="310" height="30" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="195" y="130" text-anchor="middle">② 交给快递点（系统调用 + 拷贝）</text>
+  <rect x="40" y="148" width="310" height="30" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="195" y="168" text-anchor="middle">③ 分拣中心层层转运（内核协议栈）</text>
+  <rect x="40" y="186" width="310" height="30" fill="#fff3e0" stroke="#ef6c00"/>
+  <text x="195" y="206" text-anchor="middle">④ 对方签收、拆包、归位（对端 CPU）</text>
+  <line x1="195" y1="102" x2="195" y2="110" stroke="#555" marker-end="url(#a)"/>
+  <line x1="195" y1="140" x2="195" y2="148" stroke="#555" marker-end="url(#a)"/>
+  <line x1="195" y1="178" x2="195" y2="186" stroke="#555" marker-end="url(#a)"/>
+  <text x="195" y="244" text-anchor="middle" fill="#c62828">每一步都要人经手 · 多次拷贝 · 时延高</text>
+
+  <!-- RDMA analogy -->
+  <text x="565" y="56" text-anchor="middle" font-weight="bold">RDMA ≈ 直接搬进对方仓库</text>
+  <rect x="410" y="72" width="310" height="30" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="565" y="92" text-anchor="middle">① 双方先登记好货位（注册内存 MR）</text>
+  <rect x="410" y="186" width="310" height="30" fill="#ede7f6" stroke="#5e35b1"/>
+  <text x="565" y="206" text-anchor="middle">② 货车直达货位（网卡 DMA 写远端内存）</text>
+  <rect x="410" y="110" width="310" height="68" fill="none" stroke="#bbb" stroke-dasharray="4"/>
+  <text x="565" y="140" text-anchor="middle" fill="#999">没有快递点、没有分拣中心</text>
+  <text x="565" y="160" text-anchor="middle" fill="#999">对方保管员（CPU）全程不用露面</text>
+  <path d="M565 102 C 735 130, 735 160, 565 186" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#a)"/>
+  <text x="565" y="244" text-anchor="middle" fill="#2e7d32">绕过内核 · 零拷贝 · 微秒级时延</text>
+
+  <text x="380" y="300" text-anchor="middle" fill="#555">关键前提：要先「登记货位」，网卡才被允许直接搬运 —— 这就是后面要讲的内存注册</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#555"/></marker></defs>
+</svg>

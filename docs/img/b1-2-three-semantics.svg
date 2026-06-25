@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="320" font-family="sans-serif" font-size="13">
+  <rect width="760" height="320" fill="#fbfbfd"/>
+  <text x="380" y="24" text-anchor="middle" font-weight="bold" font-size="15">三种数据传输语义：谁的 CPU 要参与？</text>
+
+  <!-- SEND/RECV -->
+  <text x="130" y="58" text-anchor="middle" font-weight="bold">SEND / RECV（双边）</text>
+  <rect x="40" y="74" width="80" height="40" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="80" y="99" text-anchor="middle">本端 CPU</text>
+  <rect x="140" y="74" width="80" height="40" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="180" y="99" text-anchor="middle">对端 CPU</text>
+  <line x1="120" y1="94" x2="140" y2="94" stroke="#1976d2" stroke-width="2" marker-end="url(#b)"/>
+  <text x="130" y="140" text-anchor="middle" fill="#c62828">两端都参与</text>
+  <text x="130" y="160" text-anchor="middle" fill="#555">对端 post_recv 收</text>
+  <text x="130" y="178" text-anchor="middle" fill="#555">两端各得一个 CQE</text>
+  <text x="130" y="208" text-anchor="middle" font-weight="bold" fill="#1976d2">用途：控制面</text>
+  <text x="130" y="226" text-anchor="middle" fill="#555">握手 / 交换元数据</text>
+
+  <!-- WRITE -->
+  <text x="380" y="58" text-anchor="middle" font-weight="bold">WRITE（单边）</text>
+  <rect x="290" y="74" width="80" height="40" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="330" y="99" text-anchor="middle">本端 CPU</text>
+  <rect x="390" y="74" width="80" height="40" fill="#eee" stroke="#bbb" stroke-dasharray="4"/>
+  <text x="430" y="95" text-anchor="middle" fill="#999">对端 CPU</text>
+  <text x="430" y="109" text-anchor="middle" fill="#999">睡大觉</text>
+  <path d="M370 94 C 380 130, 380 130, 430 120" fill="none" stroke="#2e7d32" stroke-width="2" marker-end="url(#c)"/>
+  <text x="380" y="150" text-anchor="middle" fill="#2e7d32">本端把数据「推」进去</text>
+  <text x="380" y="170" text-anchor="middle" fill="#555">对端不产生 CQE</text>
+  <text x="380" y="208" text-anchor="middle" font-weight="bold" fill="#2e7d32">用途：数据面</text>
+  <text x="380" y="226" text-anchor="middle" fill="#555">高吞吐推数据</text>
+
+  <!-- READ -->
+  <text x="630" y="58" text-anchor="middle" font-weight="bold">READ（单边）</text>
+  <rect x="540" y="74" width="80" height="40" fill="#e3f2fd" stroke="#1976d2"/>
+  <text x="580" y="99" text-anchor="middle">本端 CPU</text>
+  <rect x="640" y="74" width="80" height="40" fill="#eee" stroke="#bbb" stroke-dasharray="4"/>
+  <text x="680" y="95" text-anchor="middle" fill="#999">对端 CPU</text>
+  <text x="680" y="109" text-anchor="middle" fill="#999">睡大觉</text>
+  <path d="M640 120 C 590 130, 590 130, 620 94" fill="none" stroke="#6a1b9a" stroke-width="2" marker-end="url(#d)"/>
+  <text x="630" y="150" text-anchor="middle" fill="#6a1b9a">本端把数据「拉」过来</text>
+  <text x="630" y="170" text-anchor="middle" fill="#555">对端不产生 CQE</text>
+  <text x="630" y="208" text-anchor="middle" font-weight="bold" fill="#6a1b9a">用途：数据面</text>
+  <text x="630" y="226" text-anchor="middle" fill="#555">高吞吐拉数据</text>
+
+  <text x="380" y="270" text-anchor="middle" fill="#555">「单边」之所以快，正因为对端 CPU 完全不参与 —— 但代价是发起方必须事先知道对端地址与 rkey</text>
+  <defs>
+    <marker id="b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#1976d2"/></marker>
+    <marker id="c" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2e7d32"/></marker>
+    <marker id="d" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#6a1b9a"/></marker>
+  </defs>
+</svg>
