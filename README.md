@@ -44,7 +44,6 @@ cd examples/01-write-demo
   示例 ↔ 章节映射见 [附录 B](docs/book/appendix-b-examples.md)。
 - `common/`：示例共享脚手架（错误处理、CQ 轮询、计时）与编译规则。
 - `docs/img/`：各章节与示例的 SVG 原理图（单独文件，正文以链接导入）。
-- `docs/stage*.md`、`docs/glossary.md`：历史存根，指向 book 内对应章节（兼容旧链接）。
 - `src/`：最初的单体 demo，已收编为 `examples/01-write-demo/`，保留作历史参照。
 - `CLAUDE.md`：项目工作约定。`TODO.md`：编写历史与后续可扩展方向。
 

@@ -8,7 +8,7 @@
 - **接收方必须先 `post_recv`**，否则对端 SEND 到达时触发 RNR。两端都在循环内
   为「下一发」预投递接收。
 - 用 `IBV_SEND_SIGNALED` + `wait_send_comp` 保证每发都被确认（最朴素、未优化）。
-- 输出 avg RTT 与单向延迟估计，作为阶段三性能优化的对照基线。
+- 输出 avg RTT 与单向延迟估计，作为第 11 章性能优化的对照基线。
 
 ![SEND/RECV 乒乓与计时](../../docs/img/ex02-pingpong.svg)
 
@@ -29,4 +29,4 @@ make
 
 ## 关联章节
 
-`CLAUDE.md` 第 5（SEND/RECV）、7（post/poll）节；`TODO.md` 阶段二 2.2、阶段三 3.6。
+详见教材[第 6 章 · SEND/RECV](../../docs/book/part1-06-send-recv.md)、[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)、[第 11 章 · 性能工程（基准方法）](../../docs/book/part2-11-performance.md)。

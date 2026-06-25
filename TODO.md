@@ -4,8 +4,10 @@
 > 入口见 [`docs/book/00-前言与导读.md`](docs/book/00-前言与导读.md)。
 >
 > 下方清单保留为**编写历史**：记录从「初学者最小示例」升级为
-> **「由浅入深、从小白到专家的 RDMA 系统教材」**的施工过程。当前内容组织以
-> `docs/book/` 为准，旧的 `docs/stage*.md` 已改为存根。
+> **「由浅入深、从小白到专家的 RDMA 系统教材」**的施工过程。**清单中提到的
+> `docs/stageN-*.md` / `docs/glossary.md` 为施工期的中间产物，内容已整合进
+> `docs/book/` 并删除**；当前内容组织一律以 `docs/book/` 为准（章节对照见
+> [`docs/book/00-前言与导读.md`](docs/book/00-前言与导读.md)）。
 >
 > **后续可扩展方向**：R.6 CI（在 Soft-RoCE 环境冒烟测试每个示例可建链）；
 > 更多示例（多 QP 压测、环形缓冲 + doorbell batching、GPUDirect 实测）；各章练习题。

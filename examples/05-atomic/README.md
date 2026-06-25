@@ -36,4 +36,4 @@ make
 
 ## 关联章节
 
-`CLAUDE.md` 第 6 节扩展；`TODO.md` 阶段二 2.5。
+详见教材[第 9 章 · 立即数与原子操作](../../docs/book/part1-09-imm-atomic.md)。

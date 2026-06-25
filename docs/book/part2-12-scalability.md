@@ -23,7 +23,7 @@
 | **DC / DCT / DCI** | 动态连接 / 目标端 / 发起端，用来缓解 N² 个 QP 的爆炸 |
 | **XRC** | 扩展可靠连接，纯标准 RoCE 下用来替代私有的 DC |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
 
 ---
 
@@ -322,4 +322,4 @@ struct ibv_send_wr wr = {
 | **DC / DCT / DCI** | 动态连接 / 目标端 / 发起端，缓解 N² QP |
 | **XRC** | 扩展可靠连接，纯标准 RoCE 下 DC 的替代方案 |
 
-> 完整术语表见 [`docs/glossary.md`](../glossary.md)。
+> 完整术语表见 [附录 A · 术语表与参考文献](appendix-a-glossary.md)。
