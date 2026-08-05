@@ -33,15 +33,20 @@ cd examples/01-write-demo
 ```
 
 完整的环境搭建、运行说明与「读懂第一个输出」见教材
-[第 2 章 · 30 分钟跑起来](docs/book/part1-02-quickstart.md)。
+[第 2 章 · 30 分钟跑起来](docs/book/part1-入门.md#ch02)。
 
 ---
 
 ## 仓库结构
 
-- `docs/book/`：**教材正文**（17 章 + 2 附录），从这里开始读。
+- `docs/book/`：**教材正文**（17 章 + 2 附录），从这里开始读。按三部分归并为 4 个
+  可线性通读的文件：
+  - [`part1-入门.md`](docs/book/part1-入门.md)（第 1–9 章）
+  - [`part2-进阶.md`](docs/book/part2-进阶.md)（第 10–14 章）
+  - [`part3-专家.md`](docs/book/part3-专家.md)（第 15–17 章）
+  - [`appendix-附录.md`](docs/book/appendix-附录.md)（附录 A 术语表 / B 示例索引）
 - `examples/NN-*/`：由浅入深的独立可运行示例（`server.c` / `client.c` / `README.md` / `Makefile`）。
-  示例 ↔ 章节映射见 [附录 B](docs/book/appendix-b-examples.md)。
+  示例 ↔ 章节映射见 [附录 B](docs/book/appendix-附录.md#appendix-b)。
 - `common/`：示例共享脚手架（错误处理、CQ 轮询、计时）与编译规则。
 - `docs/img/`：各章节与示例的 SVG 原理图（单独文件，正文以链接导入）。
 - `src/`：最初的单体 demo，已收编为 `examples/01-write-demo/`，保留作历史参照。

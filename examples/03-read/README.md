@@ -1,6 +1,6 @@
 # 示例 03 · RDMA READ（单边读）
 
-> 📖 对应教材：[第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-07-write-read.md)
+> 📖 对应教材：[第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-入门.md#ch07)
 
 与示例 01 的 WRITE 对称：这次由**客户端发起 READ**，把服务端内存里的数据拉回本地。
 
@@ -32,4 +32,4 @@ make
 
 ## 关联章节
 
-详见教材[第 7 章 · WRITE/READ](../../docs/book/part1-07-write-read.md)、[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)。
+详见教材[第 7 章 · WRITE/READ](../../docs/book/part1-入门.md#ch07)、[第 8 章 · post/poll](../../docs/book/part1-入门.md#ch08)。

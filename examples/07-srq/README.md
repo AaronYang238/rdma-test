@@ -1,6 +1,6 @@
 # 示例 07 · SRQ（共享接收队列）
 
-> 📖 对应教材：[第 12 章 · 可扩展架构](../../docs/book/part2-12-scalability.md)
+> 📖 对应教材：[第 12 章 · 可扩展架构](../../docs/book/part2-进阶.md#ch12)
 
 把教材第 12 章做成可运行示例：服务端创建**一个 SRQ**，两个连接（QP）共享同一份
 预投递的接收 WR；用 `wc.qp_num` 区分消息来源。
@@ -33,4 +33,4 @@ make
 
 ## 关联章节
 
-详见教材[第 12 章 · 可扩展架构](../../docs/book/part2-12-scalability.md)（SRQ、手工 QP 状态机）；连接建立见[第 5 章](../../docs/book/part1-05-connection.md)。
+详见教材[第 12 章 · 可扩展架构](../../docs/book/part2-进阶.md#ch12)（SRQ、手工 QP 状态机）；连接建立见[第 5 章](../../docs/book/part1-入门.md#ch05)。

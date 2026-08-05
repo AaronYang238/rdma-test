@@ -1,6 +1,6 @@
 # 示例 02 · SEND/RECV 双边乒乓（延迟基准）
 
-> 📖 对应教材：[第 6 章 · 双边操作 SEND/RECV](../../docs/book/part1-06-send-recv.md)
+> 📖 对应教材：[第 6 章 · 双边操作 SEND/RECV](../../docs/book/part1-入门.md#ch06)
 
 纯双边操作：客户端发 ping，服务端 echo 回 pong，循环 N 次并测量平均往返延迟。
 
@@ -29,4 +29,4 @@ make
 
 ## 关联章节
 
-详见教材[第 6 章 · SEND/RECV](../../docs/book/part1-06-send-recv.md)、[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)、[第 11 章 · 性能工程（基准方法）](../../docs/book/part2-11-performance.md)。
+详见教材[第 6 章 · SEND/RECV](../../docs/book/part1-入门.md#ch06)、[第 8 章 · post/poll](../../docs/book/part1-入门.md#ch08)、[第 11 章 · 性能工程（基准方法）](../../docs/book/part2-进阶.md#ch11)。

@@ -1,6 +1,6 @@
 # 示例 01 · RDMA WRITE（单边写）
 
-> 📖 对应教材：[第 2 章 · 30 分钟跑起来](../../docs/book/part1-02-quickstart.md) · [第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-07-write-read.md)
+> 📖 对应教材：[第 2 章 · 30 分钟跑起来](../../docs/book/part1-入门.md#ch02) · [第 7 章 · 单边操作 WRITE/READ](../../docs/book/part1-入门.md#ch07)
 
 教程基线示例（由仓库最初的 `src/` demo 收编而来）。演示**控制面 + 数据面**的
 经典组合：
@@ -26,4 +26,4 @@ make                                   # 生成 bin/server bin/client
 
 ## 关联章节
 
-详见教材[第 4 章 · 内存注册](../../docs/book/part1-04-memory-registration.md)、[第 6 章 · SEND/RECV](../../docs/book/part1-06-send-recv.md)、[第 7 章 · WRITE/READ](../../docs/book/part1-07-write-read.md)、[第 2 章 · 端到端时序](../../docs/book/part1-02-quickstart.md)。
+详见教材[第 4 章 · 内存注册](../../docs/book/part1-入门.md#ch04)、[第 6 章 · SEND/RECV](../../docs/book/part1-入门.md#ch06)、[第 7 章 · WRITE/READ](../../docs/book/part1-入门.md#ch07)、[第 2 章 · 端到端时序](../../docs/book/part1-入门.md#ch02)。

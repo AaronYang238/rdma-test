@@ -1,6 +1,6 @@
 # 示例 06 · 选择性 signaling（selective signaling）
 
-> 📖 对应教材：[第 11 章 · 性能工程](../../docs/book/part2-11-performance.md)
+> 📖 对应教材：[第 11 章 · 性能工程](../../docs/book/part2-进阶.md#ch11)
 
 把教材第 11 章的核心优化做成可运行对比：同样 N 次 RDMA WRITE，比较
 
@@ -34,4 +34,4 @@ Soft-RoCE 上绝对数值偏慢，但 A/B 相对加速比依然清晰可见。
 
 ## 关联章节
 
-详见教材[第 11 章 · 性能工程](../../docs/book/part2-11-performance.md)；完成机制见[第 8 章 · post/poll](../../docs/book/part1-08-post-poll.md)。
+详见教材[第 11 章 · 性能工程](../../docs/book/part2-进阶.md#ch11)；完成机制见[第 8 章 · post/poll](../../docs/book/part1-入门.md#ch08)。
